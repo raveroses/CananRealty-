@@ -30,10 +30,8 @@ const Navbar = () => {
   const NavBarMapping = navList.map((nav, index) => {
     const navLowerCase =
       typeof nav === "string" && nav.split(" ")[0].toLowerCase();
-    console.log(navLowerCase);
 
     const pathNameCheck = pathname === `/${navLowerCase}`;
-    console.log(navLowerCase);
     return (
       <Link
         className={`text-[#0d1c39] ${
@@ -50,7 +48,7 @@ const Navbar = () => {
     // 1266e3
     // bg-[#0d1c39]
     <header
-      className={`flex  justify-between items-center w-full sticky top-0 z-10 bg-white px-4  shadow ${poppins.className}`}
+      className={`flex  justify-between items-center w-full sticky top-0 z-10 bg-white px-20  shadow ${poppins.className}`}
     >
       <div>
         <Image
