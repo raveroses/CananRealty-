@@ -6,6 +6,7 @@ import { Poppins } from "next/font/google";
 import { usePathname } from "next/navigation";
 import { LiaTimesSolid } from "react-icons/lia";
 import { TbMenu4 } from "react-icons/tb";
+import { CiSearch, CiUser } from "react-icons/ci";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -44,7 +45,7 @@ const Navbar = () => {
       <Link
         className={`text-[#0d1c39] md:text-[16px] text-[14px] ${
           pathNameCheck ? "border-b border-[#0d1c39]" : "border-none"
-        } hover:md:bg-transparent hover:bg-gray-300 md:p-auto p-1 rounded`}
+        } hover:md:bg-transparent hover:bg-gray-300 md:p-3 p-1 rounded`}
         href={`${navLowerCase}`}
         key={index}
       >
@@ -56,7 +57,7 @@ const Navbar = () => {
     // 1266e3
     // bg-[#0d1c39]
     <header
-      className={`relative flex  justify-between items-center w-full  z-10 bg-white md:px-20 px-5  shadow ${poppins.className}`}
+      className={`relative flex  justify-between items-center w-full  z-10 bg-white md:px-20 px-[10px]  shadow ${poppins.className}`}
     >
       <div>
         <Image
@@ -67,18 +68,31 @@ const Navbar = () => {
           priority
         />
       </div>
-      <div className="md:hidden block" onClick={handleMenuModal}>
-        <TbMenu4 className="text-[30px]" />
-      </div>
+
       <nav
         className={` p-5 md:static md:w-auto md:h-auto w-[150px] h-[500px] md:sticky absolute top-20 right-0
-       flex flex-col md:flex-row gap-5 md:bg-transparent bg-gray-200 md:block ${
+       flex flex-col md:flex-row gap-10 md:bg-transparent bg-gray-200 md:block ${
          menuModal ? "block" : "hidden"
        }`}
       >
         <LiaTimesSolid className="md:hidden block text-[25px]" />
         {NavBarMapping}
       </nav>
+
+      <form action="" className="flex bg-gray-100 p-2 items-center rounded">
+        <CiSearch className="text-[20px] text-gray-500" />
+        <input
+          type="text"
+          placeholder="Search Location or Name"
+          className="border-none outline-none placeholder:text-[14px]"
+        />
+      </form>
+      <div className="user text-[30px]">
+        <CiUser />
+      </div>
+      <div className="md:hidden block" onClick={handleMenuModal}>
+        <TbMenu4 className="text-[30px]" />
+      </div>
     </header>
   );
 };

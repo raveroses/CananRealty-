@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { CiLocationOn } from "react-icons/ci";
-import { FaSackDollar } from "react-icons/fa6";
+import { FaRegHeart, FaSackDollar } from "react-icons/fa6";
 import { GoArrowUpRight } from "react-icons/go";
 import { RiContactsLine } from "react-icons/ri";
 import { TfiKey } from "react-icons/tfi";
@@ -106,17 +106,17 @@ const Body = () => {
           <p className="text-[15px]">Unlimited Offer</p>
         </div>
 
-        <div className="category flex items-center md:gap-[20px] gap-[10px]">
-          <div className="bg-black text-white md:text-[13px] text-[12px] py-1 px-2 rounded">
+        <div className="category grid md:grid-cols-4 grid-cols-2 items-center md:gap-[20px] gap-[10px]">
+          <div className="bg-black text-center text-white md:text-[13px] text-[12px] py-1 px-2 rounded">
             Homes
           </div>
-          <div className="bg-black text-white md:text-[13px] text-[12px]  py-1 px-2 rounded">
+          <div className="bg-black text-center text-white md:text-[13px] text-[11px]  py-1 px-3 rounded">
             Apartments
           </div>
-          <div className="bg-black text-white md:text-[13px] text-[12px]  py-1 px-2 rounded">
+          <div className="bg-black text-center text-white md:text-[13px] text-[12px]  py-1 px-2 rounded">
             Office
           </div>
-          <div className="border-1  md:text-[13px] text-[12px]  py-1 px-2 rounded">
+          <div className="border-1 text-center md:text-[13px] text-[12px]  py-1 px-2 rounded">
             Villa
           </div>
         </div>
@@ -128,7 +128,7 @@ const Body = () => {
             return (
               <div
                 key={index}
-                className=" max-w-full md:w-[220px] w-[210px]  h-[190px] rounded-xl relative"
+                className="relative max-w-full md:w-[220px] w-[210px]  h-[190px] rounded-xl relative"
                 style={{
                   backgroundImage: `url(${property.image})`,
                   backgroundPosition: "center",
@@ -136,7 +136,10 @@ const Body = () => {
                   backgroundSize: "cover",
                 }}
               >
-                <div className="bg-white absolute md:top-35 top-30 flex md:gap-4 gap-2 mx-2 p-[5px] rounded">
+                <div className="loveIcon absolute top-4 right-4 text-white text-[20px]">
+                  <FaRegHeart />
+                </div>
+                <div className="bg-white absolute md:top-35 top-30 flex md:gap-8 gap-3 mx-2 p-[5px] rounded">
                   <div>
                     <h3 className="text-[11px]">{property.heading}</h3>
                     <p className="text-[10px]">{property.paragraph}</p>
@@ -149,7 +152,9 @@ const Body = () => {
             );
           })}
       </section>
-
+      <button className="w-[200px] md:mx-100 mx-30 my-5 bg-[#1266e3] text-white text-font text-[13px] p-2 rounded ">
+        VIew More
+      </button>
       {/* ENDING OF GRID PROPERTY SALES */}
 
       <div className="bg-[#0d1c39] md:px-30 px-0 py-20 mt-30">
@@ -202,17 +207,17 @@ const Body = () => {
             <p className="text-[15px]">Unlimited Offer</p>
           </div>
 
-          <div className="category flex items-center md:gap-[20px] gap-[10px]">
-            <div className="bg-black text-white md:text-[13px] text-[12px] py-1 px-2 rounded">
+          <div className="category grid md:grid-cols-4 grid-cols-2 items-center md:gap-[20px] gap-[10px]">
+            <div className="bg-black text-center text-white md:text-[13px] text-[12px] py-1 px-2 rounded">
               Homes
             </div>
-            <div className="bg-black text-white md:text-[13px] text-[12px]  py-1 px-2 rounded">
+            <div className="bg-black text-center text-white md:text-[13px] text-[12px]  py-1 px-2 rounded">
               Apartments
             </div>
-            <div className="bg-black text-white md:text-[13px] text-[12px]  py-1 px-2 rounded">
+            <div className="bg-black text-center text-white md:text-[13px] text-[12px]  py-1 px-2 rounded">
               Office
             </div>
-            <div className="border-1  md:text-[13px] text-[12px]  py-1 px-2 rounded">
+            <div className="border-1 text-center  md:text-[13px] text-[12px]  py-1 px-2 rounded">
               Villa
             </div>
           </div>
@@ -232,7 +237,7 @@ const Body = () => {
                     backgroundSize: "cover",
                   }}
                 >
-                  <div className="bg-white absolute md:top-35 top-30 flex md:gap-4 gap-2 mx-2 p-[5px] rounded">
+                  <div className="bg-white absolute md:top-35 top-30 flex md:gap-8 gap-3 mx-2 p-[5px] rounded">
                     <div>
                       <h3 className="text-[11px]">{property.heading}</h3>
                       <p className="text-[10px]">{property.paragraph}</p>
@@ -245,6 +250,9 @@ const Body = () => {
               );
             })}
         </section>
+        <button className="w-[200px] md:mx-100 mx-30 my-5 bg-[#1266e3] text-white text-font text-[13px] p-2 rounded ">
+          VIew More
+        </button>
       </section>
 
       <section className="why flex md:flex-row flex-col items-center justify-center gap-20 bg-gray-200 p-10">
