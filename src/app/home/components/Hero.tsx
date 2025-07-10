@@ -34,6 +34,7 @@ const Hero = () => {
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
           backgroundSize: "cover",
+          maxWidth: "100%",
         }}
       >
         <div className="absolute inset-0 bg-black/40 z-0"></div>
@@ -41,7 +42,7 @@ const Hero = () => {
     );
   });
   return (
-    <section className="relative">
+    <section className="relative z-0">
       <Swiper
         modules={[Autoplay, Scrollbar]}
         spaceBetween={50}
@@ -56,26 +57,30 @@ const Hero = () => {
       >
         {ImageMap}
       </Swiper>
-      <section className="absolute top-0 z-10 left-20 ">
+      <section className="absolute top-0 z-10 md:left-20 left-5 ">
         <div className=" text-white drop-shadow-lg mt-[150px] ">
-          <h1 className="font-bold text-[30px]">
+          <h1 className="font-bold md:text-[30px] text-[25px]">
             Find the perfect place to Live with your family
           </h1>
-          <p className="text-[18px]">
+          <p className="md:text-[18px] text-[15px]">
             Let’s find a home that’s perfect for you
           </p>
 
-          <div className="search text-black w-[500px] mt-[20px]">
+          <div className="search text-black md:w-[500px] w-[370px]  max-w-full mt-[20px] ">
             <div className="categoryName flex justify-between bg-white py-1 px-4 w-[200px] rounded-t-md text-[14px] border-b-1 border-gray-100">
-              <h3 className="border-b-2">All</h3>
-              <h3>For Sales</h3>
-              <h3>For Rent</h3>
+              <h3 className="border-b-2 md:text-[15px] text-[13px]">All</h3>
+              <h3 className="border-b-2 md:text-[15px] text-[13px]">
+                For Sales
+              </h3>
+              <h3 className="border-b-2 md:text-[15px] text-[13px]">
+                For Rent
+              </h3>
             </div>
-            <div className="input bg-white flex justify-between items-center px-4 py-2 rounded rounded-l-none">
+            <div className="input bg-white flex justify-between  items-center px-4 py-2 rounded rounded-l-none">
               <input
                 type="text"
                 placeholder="Enter Detail"
-                className="w-[400px] bg-gray-300 p-1 border-none outline-none focus:border-[#0d1c39]
+                className="md:w-[400px] w-[250px] bg-gray-300 p-1 border-none outline-none focus:border-[#0d1c39]
                  focus:shadow-[0px_3px_16px_#0d1c39] rounded placeholder:text-[14px] "
               />
               <CiSearch className="text-[35px] font-bold text-white bg-black px-2 rounded-full" />
