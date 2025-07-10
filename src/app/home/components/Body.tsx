@@ -1,7 +1,11 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
+import { CiLocationOn } from "react-icons/ci";
+import { FaSackDollar } from "react-icons/fa6";
 import { GoArrowUpRight } from "react-icons/go";
+import { RiContactsLine } from "react-icons/ri";
+import { TfiKey } from "react-icons/tfi";
 import { JSX } from "react/jsx-runtime";
 type Service = {
   heading: string;
@@ -221,7 +225,7 @@ const Body = () => {
                       backgroundSize: "cover",
                     }}
                   >
-                    <div className="bg-white absolute top-35 flex gap-5 mx-2 p-[5px] rounded">
+                    <div className="bg-white absolute top-35 flex gap-4 mx-2 p-[5px] rounded">
                       <div>
                         <h3 className="text-[11px]">{property.heading}</h3>
                         <p className="text-[10px]">{property.paragraph}</p>
@@ -235,6 +239,96 @@ const Body = () => {
               );
             })}
         </section>
+      </section>
+
+      <section className="why flex items-center justify-center gap-20 bg-gray-200 p-10">
+        <Image
+          src="/images/Modern.png"
+          alt="why he choose us"
+          width={300}
+          height={300}
+        />
+
+        <div className="w-[350px] h-auto">
+          <div className="mb-8">
+            <h3 className="text-[25px] font-bold">Why Choose Us</h3>
+            <p className="text-[14px]">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudian
+            </p>
+          </div>
+          <div className="flex flex-col gap-5">
+            <div className="flex items-center gap-5">
+              <div className="icon bg-[#0d1c39] text-white p-2 text-[20px] rounded-full">
+                <RiContactsLine />
+              </div>
+              <div>
+                <h3 className="head text-[14px] font-bold">
+                  {" "}
+                  Property Mangement
+                </h3>
+                <div className="para text-[13px] py-1">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Repudian
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center gap-5">
+              <div className="icon bg-[#0d1c39] text-white p-2 text-[20px] rounded-full">
+                <TfiKey />
+              </div>
+              <div>
+                <h3 className="head text-[14px] font-bold">
+                  Mortgage Services
+                </h3>
+                <div className="para text-[13px] py-1">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Repudian
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center gap-5">
+              <div className="icon bg-[#0d1c39] text-white p-2 text-[20px] rounded-full">
+                <FaSackDollar />
+              </div>
+              <div>
+                <h3 className="head text-[14px] font-bold">
+                  {" "}
+                  Currency Services
+                </h3>
+                <div className="para text-[13px] py-1">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Repudian
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="land flex justify-center items-center gap-20 bg-gray-200 p-10 my-20">
+        <Image
+          src="/images/land.png"
+          alt="why he choose us"
+          width={300}
+          height={300}
+        />
+
+        <div className="quote w-[500px]">
+          <div>
+            <i>
+              Everyone wants a piece of land; it's the only sure investment. It
+              can never depreciate like a car or washing machine. The land will
+              only double its value in ten years.
+            </i>
+            <p>
+              <i>— Sam Shepard —</i>
+            </p>
+          </div>
+          <button className="flex items-center bg-red-600 text-white px-3 py-1 rounded">
+            <h3 className="text-[13px] font-bold">Check Out Location</h3>
+            <CiLocationOn className="text-[25px]" />
+          </button>
+        </div>
       </section>
     </section>
   );
