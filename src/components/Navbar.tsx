@@ -2,18 +2,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { Poppins } from "next/font/google";
 import { usePathname } from "next/navigation";
 import { LiaTimesSolid } from "react-icons/lia";
 import { TbMenu4 } from "react-icons/tb";
 import { CiSearch, CiUser } from "react-icons/ci";
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-  variable: "--font-poppins",
-  display: "swap",
-});
 
 type NavBar = string[];
 
@@ -56,9 +48,7 @@ const Navbar = () => {
   return (
     // 1266e3
     // bg-[#0d1c39]
-    <header
-      className={`relative flex  justify-between items-center w-full  z-10 bg-white md:px-20 px-[10px]  shadow ${poppins.className}`}
-    >
+    <header className="relative flex  justify-between items-center w-full  z-10 bg-white md:px-20 px-[10px]  shadow">
       <div>
         <Image
           src="/images/logo.png"

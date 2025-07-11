@@ -1,19 +1,10 @@
 "use client";
-import { Poppins } from "next/font/google";
 import Image from "next/image";
 import { FaRegPaperPlane } from "react-icons/fa6";
 
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-  variable: "--font-poppins",
-  display: "swap",
-});
 const Footer = () => {
   return (
-    <footer
-      className={`bg-[#0d1c39]  h-auto py-10 md:px-20 px-[10px] ${poppins.className} text-white`}
-    >
+    <footer className="bg-[#0d1c39]  h-auto py-10 md:px-20 px-[10px]  text-white">
       <div className="logo ">
         <Image src="/images/logo.png" width={100} height={100} alt="logo" />
       </div>

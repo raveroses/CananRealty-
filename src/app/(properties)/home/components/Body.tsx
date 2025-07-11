@@ -338,7 +338,7 @@ const Body = () => {
               <i>— Sam Shepard —</i>
             </p>
           </div>
-          <button className="flex items-center bg-red-600 text-white px-3 py-1 rounded md:mx-0 mx-auto">
+          <button className="flex items-center bg-[#1266e3] text-white px-3 py-1 rounded md:mx-0 mx-auto">
             <h3 className="text-[13px] font-bold">Check Out Location</h3>
             <CiLocationOn className="text-[25px]" />
           </button>

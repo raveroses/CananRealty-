@@ -1,5 +1,4 @@
 "use client";
-import { Poppins } from "next/font/google";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Scrollbar } from "swiper/modules";
 import { CiSearch } from "react-icons/ci";
@@ -8,13 +7,6 @@ import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import { MdOutlineVilla } from "react-icons/md";
 import { CiHome } from "react-icons/ci";
 import "swiper/css";
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-  variable: "--font-poppins",
-  display: "swap",
-});
 
 type Image = string[];
 const Hero = () => {
@@ -28,7 +20,7 @@ const Hero = () => {
     return (
       <SwiperSlide
         key={index}
-        className={`w-full max-w-full ${poppins.className}`}
+        className="w-full max-w-full"
         style={{
           backgroundImage: `url(${img})`,
           backgroundRepeat: "no-repeat",

@@ -1,13 +1,7 @@
 "use client";
 import { useState } from "react";
-import { Poppins } from "next/font/google";
 import { FaRegHeart } from "react-icons/fa";
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-  variable: "--font-poppins",
-  display: "swap",
-});
+
 type Property = {
   image: string;
   heading: string;
@@ -67,7 +61,7 @@ const LandBody = () => {
     },
   ]);
   return (
-    <section className={`md:px-20 px-[10px] ${poppins.className} my-20`}>
+    <section className="md:px-20 px-[10px]  my-20">
       <div className="flex items-center justify-between">
         <div className="heads">
           <h1 className="md:text-[30px] text-[25px] font-bold">Residential</h1>
