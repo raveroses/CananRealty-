@@ -16,8 +16,8 @@ const Navbar = () => {
     "Consultancy",
     "Construction",
     "Contact us",
-    "Sign up",
-    // "Login",
+    "Create Listing",
+    "Login",
   ]);
 
   const pathname = usePathname();

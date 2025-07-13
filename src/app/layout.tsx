@@ -34,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${poppins.className} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} antialiased`}
       >
         <section className="z-50">
           <Navbar />
