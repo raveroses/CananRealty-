@@ -7,6 +7,9 @@ import { GoArrowUpRight } from "react-icons/go";
 import { RiContactsLine } from "react-icons/ri";
 import { TfiKey } from "react-icons/tfi";
 import { JSX } from "react/jsx-runtime";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import PropertyListing from "../app/data/PropertyListing";
 type Service = {
   heading: string;
   paragraph: string;
@@ -15,12 +18,6 @@ type Service = {
   image: string;
 };
 
-type Property = {
-  image: string;
-  heading: string;
-  paragraph: string;
-  view: string;
-};
 const Body = () => {
   const [serviceContent] = useState<Service[]>([
     {
@@ -46,56 +43,46 @@ const Body = () => {
     },
   ]);
 
-  const [propertyListing] = useState<Property[]>([
-    {
-      image: "/images/Modern2.png",
-      heading: " Luxury Family Home",
-      paragraph: "132 Greene Ave",
-      view: "View",
-    },
-    {
-      image: "/images/Modern2.png",
-      heading: " Luxury Family Home",
-      paragraph: "132 Greene Ave",
-      view: "View",
-    },
-    {
-      image: "/images/Modern2.png",
-      heading: " Luxury Family Home",
-      paragraph: "132 Greene Ave",
-      view: "View",
-    },
-    {
-      image: "/images/Modern2.png",
-      heading: " Luxury Family Home",
-      paragraph: "132 Greene Ave",
-      view: "View",
-    },
-    {
-      image: "/images/Modern2.png",
-      heading: " Luxury Family Home",
-      paragraph: "132 Greene Ave",
-      view: "View",
-    },
-    {
-      image: "/images/Modern2.png",
-      heading: " Luxury Family Home",
-      paragraph: "132 Greene Ave",
-      view: "View",
-    },
-    {
-      image: "/images/Modern2.png",
-      heading: " Luxury Family Home",
-      paragraph: "132 Greene Ave",
-      view: "View",
-    },
-    {
-      image: "/images/Modern2.png",
-      heading: " Luxury Family Home",
-      paragraph: "132 Greene Ave",
-      view: "View",
-    },
+  const [saleButton] = useState<string[]>([
+    "Home",
+    "Apartment",
+    "Villa",
+    "Office",
   ]);
+
+  const [buttonBool, setButtonBool] = useState<string>();
+  const [filterProduct, setFilterProduct] = useState(PropertyListing);
+  const handleBtnClicking = (id: string) => {
+    // const btn = saleButton.find((button) => button === id);
+    // setButtonBool(btn);
+    const product = PropertyListing.filter(
+      (product) => product.category === id
+    );
+    setFilterProduct(product);
+    setButtonBool(id.toLowerCase());
+  };
+  const buttonListing = saleButton.map((button, index) => {
+    return (
+      <div
+        className={`border-1 text-center md:text-[13px] text-[12px]  py-1 px-2 rounded cursor-pointer ${
+          buttonBool === button && "bg-black text-white"
+        }`}
+        key={index}
+        onClick={() => handleBtnClicking(button)}
+      >
+        {button}
+      </div>
+    );
+  });
+
+  const router = useRouter();
+
+  const viewProduct = (category: string) => {
+    router.push(
+      `/${category.toLowerCase()}/category=${category.toLowerCase()}`
+    );
+  };
+
   return (
     <section className="md:px-20 px-[10px] py-10">
       <div className="flex items-center justify-between">
@@ -107,24 +94,13 @@ const Body = () => {
         </div>
 
         <div className="category grid md:grid-cols-4 grid-cols-2 items-center md:gap-[20px] gap-[10px]">
-          <div className="bg-black text-center text-white md:text-[13px] text-[12px] py-1 px-2 rounded">
-            Homes
-          </div>
-          <div className="bg-black text-center text-white md:text-[13px] text-[11px]  py-1 px-3 rounded">
-            Apartments
-          </div>
-          <div className="bg-black text-center text-white md:text-[13px] text-[12px]  py-1 px-2 rounded">
-            Office
-          </div>
-          <div className="border-1 text-center md:text-[13px] text-[12px]  py-1 px-2 rounded">
-            Villa
-          </div>
+          {buttonListing}
         </div>
       </div>
 
       <section className="grid md:grid-cols-4 grid-cols-2 md:gap-19 gap-5 items-center mt-20">
-        {propertyListing &&
-          propertyListing.map((property, index) => {
+        {filterProduct &&
+          filterProduct.map((property, index) => {
             return (
               <div
                 key={index}
@@ -144,7 +120,10 @@ const Body = () => {
                     <h3 className="text-[11px]">{property.heading}</h3>
                     <p className="text-[10px]">{property.paragraph}</p>
                   </div>
-                  <button className="text-[10px] border-1 px-3  py-0 rounded bg-[#1266e3] text-white">
+                  <button
+                    className="text-[10px] border-1 px-3  py-0 rounded bg-[#1266e3] text-white"
+                    onClick={() => viewProduct(property.category)}
+                  >
                     {property.view}
                   </button>
                 </div>
@@ -152,9 +131,12 @@ const Body = () => {
             );
           })}
       </section>
-      <button className="w-[200px] md:mx-100 mx-30 my-5 bg-[#1266e3] text-white text-font text-[13px] p-2 rounded ">
-        VIew More
-      </button>
+      <Link href="/property">
+        {" "}
+        <button className="w-[200px] md:mx-100 mx-30 my-5 bg-[#1266e3] text-white text-font text-[13px] p-2 rounded ">
+          VIew More
+        </button>
+      </Link>
       {/* ENDING OF GRID PROPERTY SALES */}
 
       <div className="bg-[#0d1c39] md:px-30 px-0 py-20 mt-30">
@@ -224,8 +206,8 @@ const Body = () => {
         </div>
 
         <section className="grid md:grid-cols-4 grid-cols-2 md:gap-19 gap-5 items-center mt-20">
-          {propertyListing &&
-            propertyListing.map((property, index) => {
+          {PropertyListing &&
+            PropertyListing.map((property, index) => {
               return (
                 <div
                   key={index}
@@ -330,7 +312,7 @@ const Body = () => {
         <div className="quote md:w-[500px] w-full md:text-left text-center">
           <div>
             <i>
-              Everyone wants a piece of land; it's the only sure investment. It
+              Everyone wants a piece of land; its the only sure investment. It
               can never depreciate like a car or washing machine. The land will
               only double its value in ten years.
             </i>

@@ -7,17 +7,20 @@ import { LiaTimesSolid } from "react-icons/lia";
 import { TbMenu4 } from "react-icons/tb";
 import { CiSearch, CiUser } from "react-icons/ci";
 
-type NavBar = string[];
+type NavBar = {
+  navName: string;
+  navLink: string;
+};
 
 const Navbar = () => {
-  const [navList] = useState<NavBar>([
-    "Home",
-    "About",
-    "Consultancy",
-    "Construction",
-    "Contact us",
-    "Create Listing",
-    "Login",
+  const [navList] = useState<NavBar[]>([
+    { navName: "Home", navLink: "/" },
+    { navName: "About", navLink: "about" },
+    { navName: "Consultancy", navLink: "consultancy" },
+    { navName: "Construction", navLink: "construction" },
+    { navName: "Contact us", navLink: "contact" },
+    { navName: "Create Listing", navLink: "create" },
+    { navName: "Login", navLink: "login" },
   ]);
 
   const pathname = usePathname();
@@ -33,18 +36,17 @@ const Navbar = () => {
   };
 
   const NavBarMapping = navList.map((nav, index) => {
-    const navLowerCase = nav.split(" ")[0].toLowerCase();
-    const pathNameCheck = mounted && pathname === `/${navLowerCase}`;
+    const pathNameCheck = mounted && pathname === `/${nav.navLink}`;
 
     return (
       <Link
         className={`text-[#0d1c39] md:text-[16px] text-[14px] ${
           pathNameCheck ? "border-b border-[#0d1c39]" : "border-none"
         } hover:md:bg-transparent hover:bg-gray-300 md:p-3 p-1 rounded`}
-        href={`/${navLowerCase}`}
+        href={`/${nav.navLink}`}
         key={index}
       >
-        {nav}
+        {nav.navName}
       </Link>
     );
   });

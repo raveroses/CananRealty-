@@ -1,65 +1,12 @@
 "use client";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { FaRegHeart } from "react-icons/fa";
-
-type Property = {
-  image: string;
-  heading: string;
-  paragraph: string;
-  view: string;
-};
-
+import PropertyListing from "@/app/data/PropertyListing";
 const ProductListingBody = () => {
-  const [propertyListing] = useState<Property[]>([
-    {
-      image: "/images/Modern2.png",
-      heading: " Luxury Family Home",
-      paragraph: "132 Greene Ave",
-      view: "View",
-    },
-    {
-      image: "/images/Modern2.png",
-      heading: " Luxury Family Home",
-      paragraph: "132 Greene Ave",
-      view: "View",
-    },
-    {
-      image: "/images/Modern2.png",
-      heading: " Luxury Family Home",
-      paragraph: "132 Greene Ave",
-      view: "View",
-    },
-    {
-      image: "/images/Modern2.png",
-      heading: " Luxury Family Home",
-      paragraph: "132 Greene Ave",
-      view: "View",
-    },
-    {
-      image: "/images/Modern2.png",
-      heading: " Luxury Family Home",
-      paragraph: "132 Greene Ave",
-      view: "View",
-    },
-    {
-      image: "/images/Modern2.png",
-      heading: " Luxury Family Home",
-      paragraph: "132 Greene Ave",
-      view: "View",
-    },
-    {
-      image: "/images/Modern2.png",
-      heading: " Luxury Family Home",
-      paragraph: "132 Greene Ave",
-      view: "View",
-    },
-    {
-      image: "/images/Modern2.png",
-      heading: " Luxury Family Home",
-      paragraph: "132 Greene Ave",
-      view: "View",
-    },
-  ]);
+  const router = useRouter();
+  const viewProduct = (id: number, category: string) => {
+    router.push(`property/${id}?category=${category}`);
+  };
   return (
     <section className="md:px-20 px-[10px] my-20">
       <div className="flex items-center justify-between">
@@ -85,8 +32,8 @@ const ProductListingBody = () => {
       </div>
 
       <section className=" grid md:grid-cols-4 grid-cols-2 md:gap-15 gap-5 items-center mt-10">
-        {propertyListing &&
-          propertyListing.map((property, index) => {
+        {PropertyListing &&
+          PropertyListing.map((property, index) => {
             return (
               <div
                 key={index}
@@ -106,7 +53,10 @@ const ProductListingBody = () => {
                     <h3 className="text-[11px]">{property.heading}</h3>
                     <p className="text-[10px]">{property.paragraph}</p>
                   </div>
-                  <button className="text-[10px] border-1 px-3  py-0 rounded bg-[#1266e3] text-white">
+                  <button
+                    className="text-[10px] border-1 px-3  py-0 rounded bg-[#1266e3] text-white"
+                    onClick={() => viewProduct(property.id, property.category)}
+                  >
                     {property.view}
                   </button>
                 </div>

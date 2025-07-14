@@ -1,9 +1,11 @@
-import Home from "./(properties)/home/page";
-
-export default function page() {
+import Hero from "@/components/Hero";
+import Body from "@/components/Body";
+const Home = () => {
   return (
-    <div>
-      <Home />
-    </div>
+    <section>
+      <Hero />
+      <Body />
+    </section>
   );
-}
+};
+export default Home;
