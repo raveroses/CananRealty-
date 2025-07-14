@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { LiaTimesSolid } from "react-icons/lia";
 import { TbMenu4 } from "react-icons/tb";
@@ -22,33 +22,35 @@ const Navbar = () => {
 
   const pathname = usePathname();
   const [menuModal, setMenuModal] = useState<boolean>(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleMenuModal = () => {
-    console.log("clicked");
     setMenuModal((prev) => !prev);
   };
 
   const NavBarMapping = navList.map((nav, index) => {
-    const navLowerCase =
-      typeof nav === "string" && nav.split(" ")[0].toLowerCase();
+    const navLowerCase = nav.split(" ")[0].toLowerCase();
+    const pathNameCheck = mounted && pathname === `/${navLowerCase}`;
 
-    const pathNameCheck = pathname === `/${navLowerCase}`;
     return (
       <Link
         className={`text-[#0d1c39] md:text-[16px] text-[14px] ${
           pathNameCheck ? "border-b border-[#0d1c39]" : "border-none"
         } hover:md:bg-transparent hover:bg-gray-300 md:p-3 p-1 rounded`}
-        href={`${navLowerCase}`}
+        href={`/${navLowerCase}`}
         key={index}
       >
         {nav}
       </Link>
     );
   });
+
   return (
-    // 1266e3
-    // bg-[#0d1c39]
-    <header className="relative flex  justify-between items-center w-full  z-10 bg-white md:px-20 px-[10px]  shadow">
+    <header className="relative flex justify-between items-center w-full z-10 bg-white md:px-20 px-[10px] shadow">
       <div>
         <Image
           src="/images/logo.png"
@@ -60,10 +62,10 @@ const Navbar = () => {
       </div>
 
       <nav
-        className={` p-5 md:static md:w-auto md:h-auto w-[150px] h-[500px] md:sticky absolute top-20 right-0
-       flex flex-col md:flex-row gap-10 md:bg-transparent bg-gray-200 md:block ${
-         menuModal ? "block" : "hidden"
-       }`}
+        className={`p-5 md:static md:w-auto md:h-auto w-[150px] h-[500px] md:sticky absolute top-20 right-0
+        flex flex-col md:flex-row gap-10 md:bg-transparent bg-gray-200 md:block ${
+          menuModal ? "block" : "hidden"
+        }`}
       >
         <LiaTimesSolid className="md:hidden block text-[25px]" />
         {NavBarMapping}
@@ -86,4 +88,5 @@ const Navbar = () => {
     </header>
   );
 };
+
 export default Navbar;
