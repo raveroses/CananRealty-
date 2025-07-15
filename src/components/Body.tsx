@@ -76,11 +76,8 @@ const Body = () => {
   });
 
   const router = useRouter();
-
-  const viewProduct = (category: string) => {
-    router.push(
-      `/${category.toLowerCase()}/category=${category.toLowerCase()}`
-    );
+  const viewProduct = (id: number, category: string) => {
+    router.push(`land/${id}?category=${category}`);
   };
 
   return (
@@ -122,7 +119,7 @@ const Body = () => {
                   </div>
                   <button
                     className="text-[10px] border-1 px-3  py-0 rounded bg-[#1266e3] text-white"
-                    onClick={() => viewProduct(property.category)}
+                    onClick={() => viewProduct(property.id, property.category)}
                   >
                     {property.view}
                   </button>
@@ -224,7 +221,12 @@ const Body = () => {
                       <h3 className="text-[11px]">{property.heading}</h3>
                       <p className="text-[10px]">{property.paragraph}</p>
                     </div>
-                    <button className="text-[10px] border-1 px-3 py-0 rounded bg-[#1266e3] text-white">
+                    <button
+                      className="text-[10px] border-1 px-3 py-0 rounded bg-[#1266e3] text-white"
+                      onClick={() =>
+                        viewProduct(property.id, property.category)
+                      }
+                    >
                       {property.view}
                     </button>
                   </div>
@@ -232,7 +234,7 @@ const Body = () => {
               );
             })}
         </section>
-        <button className="w-[200px] md:mx-100 mx-30 my-5 bg-[#1266e3] text-white text-font text-[13px] p-2 rounded ">
+        <button className="w-[200px] md:mx-120 mx-30 my-5 bg-[#1266e3] text-white text-font text-[13px] p-2 rounded ">
           VIew More
         </button>
       </section>

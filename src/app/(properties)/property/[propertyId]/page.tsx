@@ -15,8 +15,8 @@ import { FaRegUserCircle } from "react-icons/fa";
 type Prop = {
   params: {
     propertyId: number;
-    category: string;
   };
+  searchParams: { category?: string };
 };
 export const generateStaticParams = async () => {
   return PropertyListing.map((property) => ({
@@ -25,8 +25,9 @@ export const generateStaticParams = async () => {
 };
 
 console.log(PropertyListing);
-const ProductDisplay = ({ params }: Prop) => {
-  const { propertyId, category } = params;
+const ProductDisplay = ({ params, searchParams }: Prop) => {
+  const { propertyId } = params;
+  const { category } = searchParams;
 
   console.log(category);
   console.log(propertyId);

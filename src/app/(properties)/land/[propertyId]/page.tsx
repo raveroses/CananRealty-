@@ -3,7 +3,7 @@ import { CiLocationOn } from "react-icons/ci";
 import { HiArrowsPointingIn } from "react-icons/hi2";
 import { IoBedOutline } from "react-icons/io5";
 import { LuBath } from "react-icons/lu";
-
+import PropertyListing from "@/app/data/PropertyListing";
 import {
   Accordion,
   AccordionContent,
@@ -12,7 +12,25 @@ import {
 } from "@/components/ui/accordion";
 import { FaRegUserCircle } from "react-icons/fa";
 
-const ProductDisplay = () => {
+type Prop = {
+  params: {
+    propertyId: number;
+  };
+  searchParams: { category?: string };
+};
+export const generateStaticParams = async () => {
+  return PropertyListing.map((property) => ({
+    propertyId: property.id.toString(),
+  }));
+};
+
+console.log(PropertyListing);
+const ProductDisplay = ({ params, searchParams }: Prop) => {
+  const { propertyId } = params;
+  const { category } = searchParams;
+
+  console.log(category);
+  console.log(propertyId);
   return (
     <section className="md:px-20 px-[10px] mt-20 ">
       <div className="Image flex flex-col md:flex-row gap-10">
