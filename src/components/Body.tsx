@@ -10,6 +10,7 @@ import { JSX } from "react/jsx-runtime";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import PropertyListing from "../app/data/PropertyListing";
+
 type Service = {
   heading: string;
   paragraph: string;
@@ -77,7 +78,7 @@ const Body = () => {
 
   const router = useRouter();
   const viewProduct = (id: number, category: string) => {
-    router.push(`land/${id}?category=${category}`);
+    router.push(`property/${id}?category=${category}`);
   };
 
   return (
@@ -158,7 +159,8 @@ const Body = () => {
                       alt="card-image"
                       width={100}
                       height={100}
-                      objectPosition="center"
+                      className="object-center"
+                      style={{ width: "auto", height: "auto" }}
                     />
                   </div>
 
@@ -245,6 +247,7 @@ const Body = () => {
           alt="why he choose us"
           width={300}
           height={300}
+          priority
         />
 
         <div className="md:w-[350px] w-full h-auto">
@@ -322,10 +325,13 @@ const Body = () => {
               <i>— Sam Shepard —</i>
             </p>
           </div>
-          <button className="flex items-center bg-[#1266e3] text-white px-3 py-1 rounded md:mx-0 mx-auto">
-            <h3 className="text-[13px] font-bold">Check Out Location</h3>
-            <CiLocationOn className="text-[25px]" />
-          </button>
+
+          <Link href="/land">
+            <button className="flex items-center bg-[#1266e3] text-white px-3 py-1 rounded md:mx-0 mx-auto cursor-pointer">
+              <h3 className="text-[13px] font-bold">Check Out Location</h3>
+              <CiLocationOn className="text-[25px]" />
+            </button>
+          </Link>
         </div>
       </section>
     </section>

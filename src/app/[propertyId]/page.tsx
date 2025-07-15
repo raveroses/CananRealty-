@@ -24,13 +24,17 @@ export const generateStaticParams = async () => {
   }));
 };
 
-console.log(PropertyListing);
-const ProductDisplay = ({ params, searchParams }: Prop) => {
-  const { propertyId } = params;
-  const { category } = searchParams;
+const ProductDisplay = async ({ params, searchParams }: Prop) => {
+  const { propertyId } = await params;
+  const { category } = await searchParams;
 
-  console.log(category);
-  console.log(propertyId);
+  const property = PropertyListing.find(
+    (item) => item.id === Number(propertyId)
+  );
+  const properties = PropertyListing.find((item) => item.category === category);
+
+  if (!property) return <div>Property not found</div>;
+  if (!properties) return <div>Property not found</div>;
   return (
     <section className="md:px-20 px-[10px] mt-20 ">
       <div className="Image flex flex-col md:flex-row gap-10">
@@ -41,6 +45,7 @@ const ProductDisplay = ({ params, searchParams }: Prop) => {
             width={620}
             height={600}
             className="rounded-xl"
+            priority
           />
         </div>
 
@@ -51,6 +56,7 @@ const ProductDisplay = ({ params, searchParams }: Prop) => {
             width={300}
             height={300}
             className="rounded-xl"
+            priority
           />
           <Image
             src="/images/Modern2.png"
@@ -58,6 +64,7 @@ const ProductDisplay = ({ params, searchParams }: Prop) => {
             width={300}
             height={300}
             className="rounded-xl"
+            priority
           />
           <Image
             src="/images/Modern2.png"
@@ -65,6 +72,7 @@ const ProductDisplay = ({ params, searchParams }: Prop) => {
             width={300}
             height={300}
             className="rounded-xl"
+            priority
           />
         </div>
       </div>

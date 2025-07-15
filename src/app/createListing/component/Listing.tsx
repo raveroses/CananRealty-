@@ -34,7 +34,6 @@ const Listing = () => {
     "Supermarket",
     "Tank farm",
   ]);
-  console.log(propertyTypes);
   return (
     <section className="bg-[#ffff] shadow md:w-[900px] w-full mx-auto my-20 py-10  md:px-10 px-[10px]">
       <form action="" className="flex flex-col gap-5">
