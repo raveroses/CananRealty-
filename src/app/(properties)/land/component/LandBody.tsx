@@ -5,8 +5,8 @@ import PropertyListing from "@/app/data/PropertyListing";
 
 const LandBody = () => {
   const router = useRouter();
-  const viewProduct = (id: number, category: string) => {
-    router.push(`land/${id}?category=${category}`);
+  const viewProduct = (id: number, service: string, category: string) => {
+    router.push(`property/${id}?service=${service}?category=${category}`);
   };
   return (
     <section className="md:px-20 px-[10px]  my-20">
@@ -46,14 +46,23 @@ const LandBody = () => {
                 <div className="loveIcon absolute top-4 right-4 text-white text-[20px]">
                   <FaRegHeart />
                 </div>
-                <div className="bg-white absolute md:top-35 top-30 flex md:gap-8 gap-3 mx-2 p-[5px] rounded">
+                <div
+                  className="bg-white absolute md:top-35 top-30 md:left-2 flex md:gap-12 left-3 gap-7 
+                 p-[5px] rounded"
+                >
                   <div>
                     <h3 className="text-[11px]">{property.heading}</h3>
                     <p className="text-[10px]">{property.paragraph}</p>
                   </div>
                   <button
                     className="text-[10px] border-1 px-3  py-0 rounded bg-[#1266e3] text-white"
-                    onClick={() => viewProduct(property.id, property.category)}
+                    onClick={() =>
+                      viewProduct(
+                        property.id,
+                        property.service,
+                        property.category
+                      )
+                    }
                   >
                     {property.view}
                   </button>

@@ -9,8 +9,9 @@ import { TfiKey } from "react-icons/tfi";
 import { JSX } from "react/jsx-runtime";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import PropertyListing from "../app/data/PropertyListing";
-
+// import PropertyListing from "../app/data/PropertyListing";
+import { PropertyForsale } from "../app/data/PropertyListing";
+import { PropertyForRent } from "../app/data/PropertyListing";
 type Service = {
   heading: string;
   paragraph: string;
@@ -51,22 +52,28 @@ const Body = () => {
     "Office",
   ]);
 
-  const [buttonBool, setButtonBool] = useState<string>();
-  const [filterProduct, setFilterProduct] = useState(PropertyListing);
+  const [buttonBool, setButtonBool] = useState<string>("");
+  const [filterProduct, setFilterProduct] = useState(PropertyForsale);
+  const [RentProduct, setRentProduct] = useState(PropertyForRent);
   const handleBtnClicking = (id: string) => {
-    // const btn = saleButton.find((button) => button === id);
-    // setButtonBool(btn);
-    const product = PropertyListing.filter(
+    const product = PropertyForsale.filter(
       (product) => product.category === id
     );
     setFilterProduct(product);
+    setButtonBool(id.toLowerCase());
+  };
+  const RentPropertyBtn = (id: string) => {
+    const product = PropertyForRent.filter(
+      (product) => product.category === id
+    );
+    setRentProduct(product);
     setButtonBool(id.toLowerCase());
   };
   const buttonListing = saleButton.map((button, index) => {
     return (
       <div
         className={`border-1 text-center md:text-[13px] text-[12px]  py-1 px-2 rounded cursor-pointer ${
-          buttonBool === button && "bg-black text-white"
+          buttonBool === button.toLowerCase() && "bg-black text-white"
         }`}
         key={index}
         onClick={() => handleBtnClicking(button)}
@@ -75,10 +82,23 @@ const Body = () => {
       </div>
     );
   });
+  const Rentbutton = saleButton.map((button, index) => {
+    return (
+      <div
+        className={`border-1 text-center md:text-[13px] text-[12px]  py-1 px-2 rounded cursor-pointer ${
+          buttonBool === button.toLowerCase() && "bg-black text-white"
+        }`}
+        key={index}
+        onClick={() => RentPropertyBtn(button)}
+      >
+        {button}
+      </div>
+    );
+  });
 
   const router = useRouter();
-  const viewProduct = (id: number, category: string) => {
-    router.push(`property/${id}?category=${category}`);
+  const viewProduct = (id: number, service: string, category: string) => {
+    router.push(`/property/${id}?service=${service}&category=${category}`);
   };
 
   return (
@@ -113,14 +133,23 @@ const Body = () => {
                 <div className="loveIcon absolute top-4 right-4 text-white text-[20px]">
                   <FaRegHeart />
                 </div>
-                <div className="bg-white absolute md:top-35 top-30 flex md:gap-8 gap-3 mx-2 p-[5px] rounded">
+                <div
+                  className="bg-white absolute md:top-35 top-30 md:left-2 flex md:gap-12 left-3 gap-7 
+                 p-[5px] rounded"
+                >
                   <div>
                     <h3 className="text-[11px]">{property.heading}</h3>
                     <p className="text-[10px]">{property.paragraph}</p>
                   </div>
                   <button
-                    className="text-[10px] border-1 px-3  py-0 rounded bg-[#1266e3] text-white"
-                    onClick={() => viewProduct(property.id, property.category)}
+                    className="text-[10px] border-1 px-3 py-0 rounded bg-[#1266e3] text-white"
+                    onClick={() =>
+                      viewProduct(
+                        property.id,
+                        property.service,
+                        property.category
+                      )
+                    }
                   >
                     {property.view}
                   </button>
@@ -189,24 +218,13 @@ const Body = () => {
           </div>
 
           <div className="category grid md:grid-cols-4 grid-cols-2 items-center md:gap-[20px] gap-[10px]">
-            <div className="bg-black text-center text-white md:text-[13px] text-[12px] py-1 px-2 rounded">
-              Homes
-            </div>
-            <div className="bg-black text-center text-white md:text-[13px] text-[12px]  py-1 px-2 rounded">
-              Apartments
-            </div>
-            <div className="bg-black text-center text-white md:text-[13px] text-[12px]  py-1 px-2 rounded">
-              Office
-            </div>
-            <div className="border-1 text-center  md:text-[13px] text-[12px]  py-1 px-2 rounded">
-              Villa
-            </div>
+            {Rentbutton}
           </div>
         </div>
 
         <section className="grid md:grid-cols-4 grid-cols-2 md:gap-19 gap-5 items-center mt-20">
-          {PropertyListing &&
-            PropertyListing.map((property, index) => {
+          {RentProduct &&
+            RentProduct.map((property, index) => {
               return (
                 <div
                   key={index}
@@ -218,7 +236,10 @@ const Body = () => {
                     backgroundSize: "cover",
                   }}
                 >
-                  <div className="bg-white absolute md:top-35 top-30 flex md:gap-8 gap-3 mx-2 p-[5px] rounded">
+                  <div
+                    className="bg-white absolute md:top-35 top-30 md:left-2 flex md:gap-12 left-3 gap-7 
+                 p-[5px] rounded"
+                  >
                     <div>
                       <h3 className="text-[11px]">{property.heading}</h3>
                       <p className="text-[10px]">{property.paragraph}</p>
@@ -226,7 +247,11 @@ const Body = () => {
                     <button
                       className="text-[10px] border-1 px-3 py-0 rounded bg-[#1266e3] text-white"
                       onClick={() =>
-                        viewProduct(property.id, property.category)
+                        viewProduct(
+                          property.id,
+                          property.service,
+                          property.category
+                        )
                       }
                     >
                       {property.view}
@@ -236,9 +261,11 @@ const Body = () => {
               );
             })}
         </section>
-        <button className="w-[200px] md:mx-120 mx-30 my-5 bg-[#1266e3] text-white text-font text-[13px] p-2 rounded ">
-          VIew More
-        </button>
+        <Link href="/property">
+          <button className="w-[200px] md:mx-120 mx-30 my-5 bg-[#1266e3] text-white text-font text-[13px] p-2 rounded ">
+            VIew More
+          </button>
+        </Link>
       </section>
 
       <section className="why flex md:flex-row flex-col items-center justify-center gap-20 bg-gray-200 p-10">
