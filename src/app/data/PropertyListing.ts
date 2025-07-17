@@ -133,7 +133,7 @@ export const PropertyForRent: Property[] = [
   },
   {
     id: 2,
-    category: "Home",
+    category: "Apartment",
     image: "/images/sky.jpg",
     heading: " Luxury Family Home",
     paragraph: "132 Greene Ave",
@@ -142,7 +142,7 @@ export const PropertyForRent: Property[] = [
   },
   {
     id: 3,
-    category: "Home",
+    category: "Villa",
     image: "/images/sky2.jpg",
     heading: " Luxury Family Home",
     paragraph: "132 Greene Ave",
@@ -160,7 +160,7 @@ export const PropertyForRent: Property[] = [
   },
   {
     id: 5,
-    category: "Home",
+    category: "Office",
     image: "/images/sixth.jpg",
     heading: " Luxury Family Home",
     paragraph: "132 Greene Ave",
@@ -169,7 +169,7 @@ export const PropertyForRent: Property[] = [
   },
   {
     id: 6,
-    category: "Home",
+    category: "Office",
     image: "/images/greens.jpg",
     heading: " Luxury Family Home",
     paragraph: "132 Greene Ave",

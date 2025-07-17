@@ -1,9 +1,12 @@
+"use client";
+import { useEffect, useRef } from "react";
+import { ToastContainer, toast, Bounce } from "react-toastify";
+import { useForm, ValidationError } from "@formspree/react";
 import Image from "next/image";
 import { CiLocationOn } from "react-icons/ci";
 import { HiArrowsPointingIn } from "react-icons/hi2";
 import { IoBedOutline } from "react-icons/io5";
 import { LuBath } from "react-icons/lu";
-import PropertyListing from "@/app/data/PropertyListing";
 import {
   Accordion,
   AccordionContent,
@@ -11,40 +14,37 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { FaRegUserCircle } from "react-icons/fa";
+import { Property } from "@/app/data/PropertyListing";
 
-type Prop = {
-  params: {
-    propertyId: number;
-  };
-  searchParams: { category?: string };
-};
-export const generateStaticParams = async () => {
-  return PropertyListing.map((property) => ({
-    propertyId: property.id.toString(),
-  }));
+type Props = {
+  properties: Property; // replace with actual type if you have one
 };
 
-const ProductDisplay = async ({ params, searchParams }: Prop) => {
-  const { propertyId } = await params;
-  const { category } = await searchParams;
+const SelectedProduct = ({ properties }: Props) => {
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const property = PropertyListing.find(
-    (item) => item.id === Number(propertyId)
-  );
-  const properties = PropertyListing.find((item) => item.category === category);
+  console.log("clients", properties);
+  const [state, handleSubmit] = useForm("xjkvdqjb");
 
-  if (!property) return <div>Property not found</div>;
-  if (!properties) return <div>Property not found</div>;
+  useEffect(() => {
+    if (state.succeeded && formRef.current) {
+      toast.success("Thanks, We'll get back to you 🎉");
+      formRef.current.reset();
+    }
+  }, [state.succeeded]);
+
+  // const handleOnchange:
+
   return (
     <section className="md:px-20 px-[10px] mt-20 ">
       <div className="Image flex flex-col md:flex-row gap-10">
         <div className="parent-Image">
           <Image
-            src="/images/Modern2.png"
+            src={properties.image}
             alt="image-card"
             width={620}
             height={600}
-            className="rounded-xl"
+            className="rounded-xl w-auto h-auto"
             priority
           />
         </div>
@@ -83,7 +83,7 @@ const ProductDisplay = async ({ params, searchParams }: Prop) => {
               Sale
             </div>
             <h2 className="md:text-[25px] text-[20px] font-bold ">
-              Modern 2BHK
+              {properties.heading}
             </h2>
             <address className="flex items-center text-gray-400 md:text-[16px] text-[14px]">
               <span>
@@ -189,7 +189,12 @@ const ProductDisplay = async ({ params, searchParams }: Prop) => {
             <h3 className="text-[16px] font-bold">Odekunle Waris</h3>
           </div>
 
-          <form action="" className="flex flex-col gap-3 px-5 pt-10">
+          <form
+            action=""
+            onSubmit={handleSubmit}
+            className="flex flex-col gap-3 px-5 pt-10"
+            ref={formRef}
+          >
             <label
               htmlFor="property"
               className="font-semibold text-[14px] text-[#1266e3]"
@@ -199,8 +204,17 @@ const ProductDisplay = async ({ params, searchParams }: Prop) => {
             <input
               type="text"
               id="property"
+              name="propertyName"
               className="py-2 border-none outline-none bg-gray-100 px-1 rounded placeholder:text-[14px]"
               placeholder="Property Name"
+              defaultValue={properties.heading}
+              readOnly
+              required
+            />
+            <ValidationError
+              prefix="PropertyName"
+              field="propertyName"
+              errors={state.errors}
             />
             <label
               htmlFor="name"
@@ -211,9 +225,12 @@ const ProductDisplay = async ({ params, searchParams }: Prop) => {
             <input
               type="text"
               id="name"
+              name="name"
               placeholder="Your Name"
+              required
               className="py-2 border-none outline-none bg-gray-100 px-1 rounded placeholder:text-[14px]"
             />
+            <ValidationError prefix="Name" field="name" errors={state.errors} />
             <label
               htmlFor="email"
               className="font-semibold text-[14px] text-[#1266e3]"
@@ -222,10 +239,18 @@ const ProductDisplay = async ({ params, searchParams }: Prop) => {
             </label>
             <input
               type="email"
-              name=""
+              name="email"
               id="email"
               placeholder="Your Email"
+              defaultValue="odekunlewaris@gmail.com"
+              readOnly
+              required
               className="py-2 border-none outline-none bg-gray-100 px-1 rounded placeholder:text-[14px]"
+            />
+            <ValidationError
+              prefix="Email"
+              field="email"
+              errors={state.errors}
             />
             <label
               htmlFor="number"
@@ -235,10 +260,15 @@ const ProductDisplay = async ({ params, searchParams }: Prop) => {
             </label>
             <input
               type="tel"
-              name=""
+              name="number"
               id="number"
               placeholder="Your Phone Number"
               className="py-2 border-none outline-none bg-gray-100 px-1 rounded placeholder:text-[14px]"
+            />
+            <ValidationError
+              prefix="Number"
+              field="number"
+              errors={state.errors}
             />
             <label
               htmlFor="description"
@@ -247,23 +277,44 @@ const ProductDisplay = async ({ params, searchParams }: Prop) => {
               Description
             </label>
             <textarea
-              name=""
+              name="description"
               id="description"
               placeholder="I'm Interested"
+              defaultValue="I'm Interested in this property"
+              required
+              readOnly
               className="py-2 border-none outline-none bg-gray-100 px-1 h-[150px] placeholder:text-[14px]"
             ></textarea>
-
+            <ValidationError
+              prefix="Description"
+              field="description"
+              errors={state.errors}
+            />
             <button
               type="submit"
               className="bg-[#1266e3] text-white p-2 text-center rounded"
+              disabled={state.submitting}
             >
               Send Message
             </button>
           </form>
         </div>
       </section>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+      />
     </section>
   );
 };
 
-export default ProductDisplay;
+export default SelectedProduct;

@@ -1,4 +1,3 @@
-"use client";
 import Image from "next/image";
 import { FaRegPaperPlane } from "react-icons/fa6";
 
@@ -6,7 +5,14 @@ const Footer = () => {
   return (
     <footer className="bg-[#0d1c39]  h-auto py-10 md:px-20 px-[10px]  text-white">
       <div className="logo ">
-        <Image src="/images/logo.png" width={100} height={100} alt="logo" />
+        <Image
+          src="/images/logo.png"
+          width={100}
+          height={100}
+          alt="logo"
+          priority
+          className="w-auto h-auto"
+        />
       </div>
 
       <div className="grid md:grid-cols-5 grid-cols-2 items-center md:gap-30 gap-10">
@@ -56,6 +62,8 @@ const Footer = () => {
             src="/images/scan.png"
             width={100}
             height={100}
+            priority
+            className="w-auto h-auto"
           />
         </div>
       </div>

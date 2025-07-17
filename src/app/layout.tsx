@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Poppins } from "next/font/google";
-
+import ContextKingdom from "./context/ContextKingdom";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -36,13 +36,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} antialiased`}
       >
-        <section className="z-50">
-          <Navbar />
-        </section>
-        {children}
-        <section>
-          <Footer />
-        </section>
+        <ContextKingdom>
+          <section className="z-50">
+            <Navbar />
+          </section>
+          {children}
+          <section>
+            <Footer />
+          </section>
+        </ContextKingdom>
       </body>
     </html>
   );

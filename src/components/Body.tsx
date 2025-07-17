@@ -8,10 +8,8 @@ import { RiContactsLine } from "react-icons/ri";
 import { TfiKey } from "react-icons/tfi";
 import { JSX } from "react/jsx-runtime";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-// import PropertyListing from "../app/data/PropertyListing";
-import { PropertyForsale } from "../app/data/PropertyListing";
-import { PropertyForRent } from "../app/data/PropertyListing";
+
+import useContextRetrieval from "@/app/context/useContextRetrieval";
 type Service = {
   heading: string;
   paragraph: string;
@@ -21,6 +19,14 @@ type Service = {
 };
 
 const Body = () => {
+  const {
+    buttonListing,
+    Rentbutton,
+    RentPropertyBtn,
+    SalesProduct,
+    RentProduct,
+    viewProduct,
+  } = useContextRetrieval();
   const [serviceContent] = useState<Service[]>([
     {
       heading: "Buy a property",
@@ -45,62 +51,6 @@ const Body = () => {
     },
   ]);
 
-  const [saleButton] = useState<string[]>([
-    "Home",
-    "Apartment",
-    "Villa",
-    "Office",
-  ]);
-
-  const [buttonBool, setButtonBool] = useState<string>("");
-  const [filterProduct, setFilterProduct] = useState(PropertyForsale);
-  const [RentProduct, setRentProduct] = useState(PropertyForRent);
-  const handleBtnClicking = (id: string) => {
-    const product = PropertyForsale.filter(
-      (product) => product.category === id
-    );
-    setFilterProduct(product);
-    setButtonBool(id.toLowerCase());
-  };
-  const RentPropertyBtn = (id: string) => {
-    const product = PropertyForRent.filter(
-      (product) => product.category === id
-    );
-    setRentProduct(product);
-    setButtonBool(id.toLowerCase());
-  };
-  const buttonListing = saleButton.map((button, index) => {
-    return (
-      <div
-        className={`border-1 text-center md:text-[13px] text-[12px]  py-1 px-2 rounded cursor-pointer ${
-          buttonBool === button.toLowerCase() && "bg-black text-white"
-        }`}
-        key={index}
-        onClick={() => handleBtnClicking(button)}
-      >
-        {button}
-      </div>
-    );
-  });
-  const Rentbutton = saleButton.map((button, index) => {
-    return (
-      <div
-        className={`border-1 text-center md:text-[13px] text-[12px]  py-1 px-2 rounded cursor-pointer ${
-          buttonBool === button.toLowerCase() && "bg-black text-white"
-        }`}
-        key={index}
-        onClick={() => RentPropertyBtn(button)}
-      >
-        {button}
-      </div>
-    );
-  });
-
-  const router = useRouter();
-  const viewProduct = (id: number, service: string, category: string) => {
-    router.push(`/property/${id}?service=${service}&category=${category}`);
-  };
-
   return (
     <section className="md:px-20 px-[10px] py-10">
       <div className="flex items-center justify-between">
@@ -117,8 +67,8 @@ const Body = () => {
       </div>
 
       <section className="grid md:grid-cols-4 grid-cols-2 md:gap-19 gap-5 items-center mt-20">
-        {filterProduct &&
-          filterProduct.map((property, index) => {
+        {SalesProduct &&
+          SalesProduct.map((property, index) => {
             return (
               <div
                 key={index}
@@ -130,7 +80,7 @@ const Body = () => {
                   backgroundSize: "cover",
                 }}
               >
-                <div className="loveIcon absolute top-4 right-4 text-white text-[20px]">
+                <div className="loveIcon absolute top-4 right-4 text-white text-[20px] cursor-pointer">
                   <FaRegHeart />
                 </div>
                 <div
@@ -142,7 +92,7 @@ const Body = () => {
                     <p className="text-[10px]">{property.paragraph}</p>
                   </div>
                   <button
-                    className="text-[10px] border-1 px-3 py-0 rounded bg-[#1266e3] text-white"
+                    className="text-[10px] border-1 px-3 py-0 rounded bg-[#1266e3] text-white cursor-pointer"
                     onClick={() =>
                       viewProduct(
                         property.id,
@@ -160,7 +110,7 @@ const Body = () => {
       </section>
       <Link href="/property">
         {" "}
-        <button className="w-[200px] md:mx-100 mx-30 my-5 bg-[#1266e3] text-white text-font text-[13px] p-2 rounded ">
+        <button className="w-[200px] md:mx-100 mx-30 my-5 bg-[#1266e3] cursor-pointer text-white text-font text-[13px] p-2 rounded ">
           VIew More
         </button>
       </Link>
@@ -228,7 +178,7 @@ const Body = () => {
               return (
                 <div
                   key={index}
-                  className=" max-w-full md:w-[220px] w-[210px]  h-[190px] rounded-xl relative"
+                  className="relative max-w-full md:w-[220px] w-[210px]  h-[190px] rounded-xl relative"
                   style={{
                     backgroundImage: `url(${property.image})`,
                     backgroundPosition: "center",
@@ -236,6 +186,9 @@ const Body = () => {
                     backgroundSize: "cover",
                   }}
                 >
+                  <div className="loveIcon absolute top-4 right-4 text-white text-[20px] cursor-pointer">
+                    <FaRegHeart />
+                  </div>
                   <div
                     className="bg-white absolute md:top-35 top-30 md:left-2 flex md:gap-12 left-3 gap-7 
                  p-[5px] rounded"
@@ -245,7 +198,7 @@ const Body = () => {
                       <p className="text-[10px]">{property.paragraph}</p>
                     </div>
                     <button
-                      className="text-[10px] border-1 px-3 py-0 rounded bg-[#1266e3] text-white"
+                      className="text-[10px] border-1 px-3 py-0 rounded bg-[#1266e3] text-white cursor-pointer"
                       onClick={() =>
                         viewProduct(
                           property.id,
@@ -262,7 +215,7 @@ const Body = () => {
             })}
         </section>
         <Link href="/property">
-          <button className="w-[200px] md:mx-120 mx-30 my-5 bg-[#1266e3] text-white text-font text-[13px] p-2 rounded ">
+          <button className="w-[200px] md:mx-120 mx-30 my-5 bg-[#1266e3] text-white text-font text-[13px]  cursor-pointer p-2 rounded ">
             VIew More
           </button>
         </Link>
@@ -275,6 +228,7 @@ const Body = () => {
           width={300}
           height={300}
           priority
+          className="w-auto h-auto"
         />
 
         <div className="md:w-[350px] w-full h-auto">
@@ -339,6 +293,8 @@ const Body = () => {
           alt="why he choose us"
           width={300}
           height={300}
+          priority
+          className="w-auto h-auto"
         />
 
         <div className="quote md:w-[500px] w-full md:text-left text-center">

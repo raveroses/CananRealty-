@@ -60,6 +60,7 @@ const Navbar = () => {
           height={100}
           alt="company-Logo"
           priority
+          className="w-auto h-auto"
         />
       </div>
 
