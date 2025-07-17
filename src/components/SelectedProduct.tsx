@@ -15,15 +15,16 @@ import {
 } from "@/components/ui/accordion";
 import { FaRegUserCircle } from "react-icons/fa";
 import { Property } from "@/app/data/PropertyListing";
+import { Land } from "@/app/data/PropertyListing";
 
 type Props = {
-  properties: Property; // replace with actual type if you have one
+  properties?: Property; // replace with actual type if you have one
+  landproperties?: Land;
 };
 
-const SelectedProduct = ({ properties }: Props) => {
+const SelectedProduct = ({ properties, landproperties }: Props) => {
   const formRef = useRef<HTMLFormElement>(null);
 
-  console.log("clients", properties);
   const [state, handleSubmit] = useForm("xjkvdqjb");
 
   useEffect(() => {
@@ -40,7 +41,9 @@ const SelectedProduct = ({ properties }: Props) => {
       <div className="Image flex flex-col md:flex-row gap-10">
         <div className="parent-Image">
           <Image
-            src={properties.image}
+            src={
+              properties?.image || landproperties?.image || "/images/buy.jpg"
+            }
             alt="image-card"
             width={620}
             height={600}
@@ -83,7 +86,9 @@ const SelectedProduct = ({ properties }: Props) => {
               Sale
             </div>
             <h2 className="md:text-[25px] text-[20px] font-bold ">
-              {properties.heading}
+              {properties?.heading ||
+                landproperties?.names ||
+                "/images/buy.jpg"}
             </h2>
             <address className="flex items-center text-gray-400 md:text-[16px] text-[14px]">
               <span>
@@ -207,7 +212,7 @@ const SelectedProduct = ({ properties }: Props) => {
               name="propertyName"
               className="py-2 border-none outline-none bg-gray-100 px-1 rounded placeholder:text-[14px]"
               placeholder="Property Name"
-              defaultValue={properties.heading}
+              defaultValue={properties?.heading || landproperties?.names}
               readOnly
               required
             />

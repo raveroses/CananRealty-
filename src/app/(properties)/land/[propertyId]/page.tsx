@@ -1,5 +1,4 @@
-import { PropertyForRent } from "@/app/data/PropertyListing";
-import { PropertyForsale } from "@/app/data/PropertyListing";
+import { LandList } from "@/app/data/PropertyListing";
 import SelectedProduct from "@/components/SelectedProduct";
 
 type Prop = {
@@ -8,9 +7,9 @@ type Prop = {
   };
   searchParams: { category?: string };
 };
-const combined = [...PropertyForsale, ...PropertyForRent];
+
 export const generateStaticParams = async () => {
-  return combined.map((property) => ({
+  return LandList.map((property) => ({
     propertyId: property.id.toString(),
   }));
 };
@@ -19,13 +18,13 @@ const ProductDisplay = async ({ params, searchParams }: Prop) => {
   const { propertyId } = await params;
   const { category } = await searchParams;
 
-  const properties = combined.find(
+  const landproperties = LandList.find(
     (item) => item.category === category && item.id === Number(propertyId)
   );
 
-  if (!properties) return <div>Property not found</div>;
+  if (!landproperties) return <div>Property not found</div>;
 
-  return <SelectedProduct properties={properties} />;
+  return <SelectedProduct landproperties={landproperties} />;
 };
 
 export default ProductDisplay;

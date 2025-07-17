@@ -2,7 +2,7 @@
 import { FaRegHeart } from "react-icons/fa";
 import useContextRetrieval from "@/app/context/useContextRetrieval";
 const LandBody = () => {
-  const { buttonListing, LandList } = useContextRetrieval();
+  const { buttonListing, LandList, viewLandProduct } = useContextRetrieval();
 
   return (
     <>
@@ -37,26 +37,18 @@ const LandBody = () => {
                   <div className="loveIcon absolute top-4 right-4 text-white text-[20px]">
                     <FaRegHeart />
                   </div>
-                  <div
-                    className="bg-white absolute md:top-35 top-30 md:left-2 flex md:gap-12 left-3 gap-7 
-                 p-[5px] rounded"
-                  >
+                  <div className="bg-white md:w-[200px] w-[185px] absolute md:top-35 top-30 md:left-2 flex justify-between left-3 p-[5px] rounded">
                     <div>
-                      <h3 className="text-[11px]">{land.name}</h3>
+                      <h3 className="text-[11px]">{land.names}</h3>
                       <p className="text-[10px]">{land.location}</p>
                     </div>
                     <button
                       className="text-[10px] border-1 px-3  py-0 rounded bg-[#1266e3] text-white"
-                      // onClick={() =>
-                      //   viewProduct(
-                      //     property.id,
-                      //     property.service,
-                      //     property.category
-                      //   )
-                      // }
+                      onClick={() =>
+                        viewLandProduct(land.id, land.names, land.category)
+                      }
                     >
                       View
-                      {/* {property.view} */}
                     </button>
                   </div>
                 </div>

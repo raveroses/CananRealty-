@@ -8,10 +8,11 @@ export type Property = {
   service: string;
 };
 export type Land = {
+  id: number;
   title: string[];
   location: string;
   sqm: number;
-  name: string;
+  names: string;
   category: string;
   image: string;
   price: number;
@@ -188,7 +189,8 @@ export const PropertyForRent: Property[] = [
 
 export const LandList: Land[] = [
   {
-    name: "The Box Estate",
+    id: 1,
+    names: "The Box Estate",
     category: "Residential",
     image: "/images/box-first.jpg",
     title: ["C of O", "Registered Survey"],
@@ -197,7 +199,8 @@ export const LandList: Land[] = [
     price: 3500000,
   },
   {
-    name: "Northern Ireland",
+    id: 2,
+    names: "Northern Ireland",
     category: "Residential",
     image: "/images/northernIreland.jpg",
     title: ["Registered Survey", "Deed of Assignment"],
@@ -206,7 +209,8 @@ export const LandList: Land[] = [
     price: 1000000,
   },
   {
-    name: "Ile Aje",
+    id: 3,
+    names: "Ile Aje",
     category: "Residential",
     image: "/images/box-first.jpg",
     title: ["Registered Survey", "Deed of Assignment"],

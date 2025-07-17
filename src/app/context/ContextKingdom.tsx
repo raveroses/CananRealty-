@@ -14,6 +14,7 @@ type ContextType = {
   RentProduct: Property[];
   viewProduct: (id: number, service: string, category: string) => void;
   LandList: Land[];
+  viewLandProduct: (id: number, names: string, category: string) => void;
 };
 
 export const ContextInit = createContext<ContextType | null>(null);
@@ -74,6 +75,11 @@ const ContextKingdom = ({ children }: { children: ReactNode }) => {
   const viewProduct = (id: number, service: string, category: string) => {
     router.push(`/property/${id}?service=${service}&category=${category}`);
   };
+
+  const viewLandProduct = (id: number, names: string, category: string) => {
+    router.push(`/land/${id}?name=${names}&category=${category}`);
+  };
+
   return (
     <ContextInit.Provider
       value={{
@@ -83,6 +89,7 @@ const ContextKingdom = ({ children }: { children: ReactNode }) => {
         RentProduct,
         viewProduct,
         LandList,
+        viewLandProduct,
       }}
     >
       {children}
