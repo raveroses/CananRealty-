@@ -1,9 +1,12 @@
 "use client";
+import useContextRetrieval from "@/app/context/useContextRetrieval";
 import { useState } from "react";
 import { PiCaretRightThin } from "react-icons/pi";
 import { TbCurrencyNaira } from "react-icons/tb";
 
 const Listing = () => {
+  const { isListingNext } = useContextRetrieval();
+
   const propertyTypes = useState<string[]>([
     "Hotel",
     "Office spaces",
@@ -34,8 +37,25 @@ const Listing = () => {
     "Supermarket",
     "Tank farm",
   ]);
+
+  console.log(isListingNext);
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleFocus = () => {
+    setIsOpen(true); // open your dropdown or modal
+  };
+
+  const handleBlur = () => {
+    setIsOpen(false); // optional: close it when input loses focus
+  };
+
   return (
-    <section className="bg-[#ffff] shadow md:w-[900px] w-full mx-auto my-20 py-10  md:px-10 px-[10px]">
+    <section
+      className={`bg-[#ffff] shadow md:w-[900px] w-full mx-auto my-20 py-10  md:px-10 px-[10px] ${
+        isListingNext ? "block" : "hidden"
+      }`}
+    >
       <form action="" className="flex flex-col gap-5">
         <div className="flexArea grid md:grid-cols-2 grid-col-1 items-center gap-5">
           <div>
@@ -60,36 +80,40 @@ const Listing = () => {
           <div>
             <div
               className="relative flex justify-between items-center w-full md:py-4 py-3 px-2 border 
-            border-gray-400 rounded text-gray-700 "
+            border-gray-400 rounded text-gray-700"
             >
               <input
                 type="text"
                 placeholder="Condition"
                 className=" w-[300px] border-none outline-none placeholder:text-[14px]"
+                onFocus={handleFocus}
+                onBlur={handleBlur}
               />
               <PiCaretRightThin className="font-bold " />
             </div>
-            <ul
-              className="md:w-[400px] w-[465px] h-[200px] overflow-y-scroll flex flex-col gap-5 shadow absolute top-85 bg-[#ffff]
-             z-10 hidden"
-            >
-              <li className="hover:bg-gray-100 py-3 px-2 border-b ">
-                Newly Built
-              </li>
-              <li className="hover:bg-gray-100 py-3 px-2 border-b ">Old</li>
-              <li className="hover:bg-gray-100 py-3 px-2 border-b ">
-                Off-Plan
-              </li>
-              <li className="hover:bg-gray-100 py-3 px-2 border-b ">
-                Uncompleted Building
-              </li>
-              <li className="hover:bg-gray-100 py-3 px-2 border-b ">
-                Under Construction
-              </li>
-              <li className="hover:bg-gray-100 py-3 px-2 border-b ">
-                Fairly Used
-              </li>
-            </ul>
+            {isOpen && (
+              <ul
+                className="md:w-[400px] w-[465px] h-[200px] overflow-y-scroll flex flex-col gap-5 shadow absolute md:top-100 top-120 bg-[#ffff]
+             z-10 hidde"
+              >
+                <li className="hover:bg-gray-100 py-3 px-2 border-b ">
+                  Newly Built
+                </li>
+                <li className="hover:bg-gray-100 py-3 px-2 border-b ">Old</li>
+                <li className="hover:bg-gray-100 py-3 px-2 border-b ">
+                  Off-Plan
+                </li>
+                <li className="hover:bg-gray-100 py-3 px-2 border-b ">
+                  Uncompleted Building
+                </li>
+                <li className="hover:bg-gray-100 py-3 px-2 border-b ">
+                  Under Construction
+                </li>
+                <li className="hover:bg-gray-100 py-3 px-2 border-b ">
+                  Fairly Used
+                </li>
+              </ul>
+            )}
           </div>
           <div>
             <div

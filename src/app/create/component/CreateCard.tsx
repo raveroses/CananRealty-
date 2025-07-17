@@ -1,8 +1,11 @@
+"use client";
 import { GiFamilyHouse, GiIsland, GiPriceTag } from "react-icons/gi";
 import { IoPricetagsOutline } from "react-icons/io5";
 import { PiBuildingApartment } from "react-icons/pi";
+import useContextRetrieval from "@/app/context/useContextRetrieval";
 
 const CreateCard = () => {
+  const { handleCardClick } = useContextRetrieval();
   return (
     <section className="w-full h-full flex md:flex-row flex-col  items-center justify-between mt-20">
       <div className="flex flex-col gap-5 sidebar md:w-[30%] w-full h-[500px] bg-[#ffffff] shadow px-5 py-10">
@@ -29,7 +32,10 @@ const CreateCard = () => {
           Choose Listing Type
         </h2>
         <div className="cardFlex flex md:flex-row flex-col gap-10 items-center">
-          <div className="bg-[#ffffff] w-[250px] h-[200px] shadow text-center p-3 rounded-xl">
+          <div
+            className="bg-[#ffffff] w-[250px] h-[200px] shadow text-center p-3 rounded-xl"
+            onClick={handleCardClick}
+          >
             <div className="text-[35px] rounded-full inline-block bg-[#1266e3] text-white p-3 mx-auto ">
               <GiFamilyHouse />
             </div>
@@ -38,7 +44,10 @@ const CreateCard = () => {
               List a house or apartment for sale or rent
             </p>
           </div>
-          <div className="bg-[#ffffff] w-[250px] h-[200px] shadow text-center p-3 rounded-xl">
+          <div
+            className="bg-[#ffffff] w-[250px] h-[200px] shadow text-center p-3 rounded-xl"
+            onClick={handleCardClick}
+          >
             <div className="text-[35px] rounded-full inline-block bg-[#1266e3] text-white p-3 mx-auto ">
               <GiIsland />
             </div>
@@ -46,7 +55,10 @@ const CreateCard = () => {
 
             <p className="text-[15px]"> List a Land for sale or rent</p>
           </div>
-          <div className="bg-[#ffffff] w-[250px] h-[200px] shadow text-center p-3 rounded-xl">
+          <div
+            className="bg-[#ffffff] w-[250px] h-[200px] shadow text-center p-3 rounded-xl"
+            onClick={handleCardClick}
+          >
             <div className="text-[35px] rounded-full inline-block bg-[#1266e3] text-white p-3 mx-auto ">
               <PiBuildingApartment />
             </div>

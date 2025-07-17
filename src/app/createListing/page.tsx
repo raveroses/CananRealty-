@@ -1,4 +1,4 @@
-// import ListFrontPage from "./component/ListFrontPage";
+import ListFrontPage from "./component/ListFrontPage";
 import Listing from "./component/Listing";
 const CreateListing = () => {
   console.log(
@@ -7,10 +7,10 @@ const CreateListing = () => {
   );
 
   return (
-    <>
-      {/* <ListFrontPage /> */}
+    <div className="my-10">
+      <ListFrontPage />
       <Listing />
-    </>
+    </div>
   );
 };
 

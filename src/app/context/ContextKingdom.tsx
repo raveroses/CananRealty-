@@ -15,6 +15,9 @@ type ContextType = {
   viewProduct: (id: number, service: string, category: string) => void;
   LandList: Land[];
   viewLandProduct: (id: number, names: string, category: string) => void;
+  handleCardClick: () => void;
+  isListingNext: boolean;
+  handleNext: () => void;
 };
 
 export const ContextInit = createContext<ContextType | null>(null);
@@ -80,6 +83,14 @@ const ContextKingdom = ({ children }: { children: ReactNode }) => {
     router.push(`/land/${id}?name=${names}&category=${category}`);
   };
 
+  const [isListingNext, setListingNext] = useState<boolean>(false);
+
+  const handleNext = () => {
+    setListingNext((prev) => !prev);
+  };
+  const handleCardClick = () => {
+    router.push("/createListing");
+  };
   return (
     <ContextInit.Provider
       value={{
@@ -90,6 +101,9 @@ const ContextKingdom = ({ children }: { children: ReactNode }) => {
         viewProduct,
         LandList,
         viewLandProduct,
+        handleCardClick,
+        isListingNext,
+        handleNext,
       }}
     >
       {children}

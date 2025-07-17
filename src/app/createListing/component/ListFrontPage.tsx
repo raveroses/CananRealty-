@@ -2,10 +2,13 @@
 import { GoPlus } from "react-icons/go";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import useContextRetrieval from "@/app/context/useContextRetrieval";
 const ListFrontPage = () => {
+  const { isListingNext, handleNext } = useContextRetrieval();
+
   return (
-    <div className="md:px-20 px-[10px]">
-      <section className="bg-[#ffff] shadow md:w-[800px] w-full mx-auto mt-20 py-10 md:px-45 px-10">
+    <div className={`md:px-20 px-[10px] ${isListingNext ? "hidden" : "block"}`}>
+      <section className="bg-[#ffff] shadow md:w-[800px] w-full mx-auto mt-20 py-10 md:px-45 px-10 ">
         <form action="" className="flex flex-col gap-5 ">
           <input
             type="text"
@@ -65,14 +68,15 @@ const ListFrontPage = () => {
               </div>
             </div>
           </div>
-          <Button
-            type="submit"
-            variant="outline"
-            className="bg-[#1266e3] text-white font-semibold cursor-pointer hover:bg-blue-300 hover:text-[#1266e3] transition all-ease duration-2000"
-          >
-            Next
-          </Button>
         </form>
+        <Button
+          // variant="outline"
+          className="bg-[#1266e3] w-full mt-10 text-white font-semibold cursor-pointer hover:bg-blue-300
+             hover:text-[#1266e3] transition all-ease duration-2000"
+          onClick={handleNext}
+        >
+          Next
+        </Button>
       </section>
     </div>
   );

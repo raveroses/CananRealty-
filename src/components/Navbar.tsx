@@ -65,7 +65,7 @@ const Navbar = () => {
       </div>
 
       <nav
-        className={`p-5 md:static md:w-auto md:h-auto w-[150px] h-[500px] md:sticky absolute top-20 right-0
+        className={`p-5 md:static md:w-auto md:h-auto w-[150px] h-[500px] absolute top-20 right-0
         flex flex-col md:flex-row gap-10 md:bg-transparent bg-gray-200 md:block ${
           menuModal ? "block" : "hidden"
         }`}

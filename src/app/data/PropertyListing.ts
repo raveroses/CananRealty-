@@ -5,7 +5,7 @@ export type Property = {
   heading: string;
   paragraph: string;
   view: string;
-  service: string;
+  service?: string;
 };
 export type Land = {
   id: number;
