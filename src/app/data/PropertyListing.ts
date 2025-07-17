@@ -7,7 +7,15 @@ export type Property = {
   view: string;
   service: string;
 };
-
+export type Land = {
+  title: string[];
+  location: string;
+  sqm: number;
+  name: string;
+  category: string;
+  image: string;
+  price: number;
+};
 const PropertyListing: Property[] = [
   {
     id: 1,
@@ -175,6 +183,36 @@ export const PropertyForRent: Property[] = [
     paragraph: "132 Greene Ave",
     view: "View",
     service: "rent",
+  },
+];
+
+export const LandList: Land[] = [
+  {
+    name: "The Box Estate",
+    category: "Residential",
+    image: "/images/box-first.jpg",
+    title: ["C of O", "Registered Survey"],
+    location: "Olorunsogo",
+    sqm: 500,
+    price: 3500000,
+  },
+  {
+    name: "Northern Ireland",
+    category: "Residential",
+    image: "/images/northernIreland.jpg",
+    title: ["Registered Survey", "Deed of Assignment"],
+    location: "Ido",
+    sqm: 500,
+    price: 1000000,
+  },
+  {
+    name: "Ile Aje",
+    category: "Residential",
+    image: "/images/box-first.jpg",
+    title: ["Registered Survey", "Deed of Assignment"],
+    location: "Moniya",
+    sqm: 500,
+    price: 1600000,
   },
 ];
 export default PropertyListing;

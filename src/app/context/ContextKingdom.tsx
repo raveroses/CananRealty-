@@ -2,6 +2,8 @@
 import { createContext, ReactNode, useState } from "react";
 import { PropertyForsale } from "../data/PropertyListing";
 import { PropertyForRent } from "../data/PropertyListing";
+import { LandList } from "../data/PropertyListing";
+import { Land } from "../data/PropertyListing";
 import { useRouter } from "next/navigation";
 import { JSX } from "react/jsx-runtime";
 import { Property } from "../data/PropertyListing";
@@ -11,6 +13,7 @@ type ContextType = {
   SalesProduct: Property[];
   RentProduct: Property[];
   viewProduct: (id: number, service: string, category: string) => void;
+  LandList: Land[];
 };
 
 export const ContextInit = createContext<ContextType | null>(null);
@@ -79,6 +82,7 @@ const ContextKingdom = ({ children }: { children: ReactNode }) => {
         SalesProduct,
         RentProduct,
         viewProduct,
+        LandList,
       }}
     >
       {children}

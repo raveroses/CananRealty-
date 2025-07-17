@@ -2,7 +2,7 @@
 import { FaRegHeart } from "react-icons/fa";
 import useContextRetrieval from "@/app/context/useContextRetrieval";
 const LandBody = () => {
-  const { buttonListing, SalesProduct, viewProduct } = useContextRetrieval();
+  const { buttonListing, LandList } = useContextRetrieval();
 
   return (
     <>
@@ -21,14 +21,14 @@ const LandBody = () => {
         </div>
 
         <section className=" grid md:grid-cols-4 grid-cols-2 md:gap-15 gap-5 items-center mt-10">
-          {SalesProduct &&
-            SalesProduct.map((property, index) => {
+          {LandList &&
+            LandList.map((land, index) => {
               return (
                 <div
                   key={index}
                   className="relative max-w-full md:w-[220px] w-[210px]  h-[190px] rounded-xl relative"
                   style={{
-                    backgroundImage: `url(${property.image})`,
+                    backgroundImage: `url(${land.image})`,
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "cover",
@@ -42,20 +42,21 @@ const LandBody = () => {
                  p-[5px] rounded"
                   >
                     <div>
-                      <h3 className="text-[11px]">{property.heading}</h3>
-                      <p className="text-[10px]">{property.paragraph}</p>
+                      <h3 className="text-[11px]">{land.name}</h3>
+                      <p className="text-[10px]">{land.location}</p>
                     </div>
                     <button
                       className="text-[10px] border-1 px-3  py-0 rounded bg-[#1266e3] text-white"
-                      onClick={() =>
-                        viewProduct(
-                          property.id,
-                          property.service,
-                          property.category
-                        )
-                      }
+                      // onClick={() =>
+                      //   viewProduct(
+                      //     property.id,
+                      //     property.service,
+                      //     property.category
+                      //   )
+                      // }
                     >
-                      {property.view}
+                      View
+                      {/* {property.view} */}
                     </button>
                   </div>
                 </div>
