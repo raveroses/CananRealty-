@@ -3,7 +3,7 @@ import useContextRetrieval from "@/app/context/useContextRetrieval";
 import { useState } from "react";
 import { PiCaretRightThin } from "react-icons/pi";
 import { TbCurrencyNaira } from "react-icons/tb";
-
+import usePersonStore from "./useStore";
 const Listing = () => {
   const { isListingNext } = useContextRetrieval();
 
@@ -38,17 +38,16 @@ const Listing = () => {
     "Tank farm",
   ]);
 
-  console.log(isListingNext);
+  const {
+    ConditionOpen,
+    FurnishingOpen,
+    PropertyTypeOpen,
+    ParkingOpen,
+    handleFocus,
+    handleBlur,
+  } = usePersonStore();
 
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleFocus = () => {
-    setIsOpen(true); // open your dropdown or modal
-  };
-
-  const handleBlur = () => {
-    setIsOpen(false); // optional: close it when input loses focus
-  };
+  console.log(ConditionOpen, FurnishingOpen, PropertyTypeOpen);
 
   return (
     <section
@@ -84,17 +83,18 @@ const Listing = () => {
             >
               <input
                 type="text"
-                placeholder="Condition"
-                className=" w-[300px] border-none outline-none placeholder:text-[14px]"
-                onFocus={handleFocus}
-                onBlur={handleBlur}
+                placeholder="condition"
+                className=" md:w-[400px] w-full border-none outline-none placeholder:text-[14px]"
+                onFocus={() => handleFocus("Condition")}
+                onBlur={() => handleBlur("Condition")}
               />
               <PiCaretRightThin className="font-bold " />
             </div>
-            {isOpen && (
+            {ConditionOpen && (
               <ul
-                className="md:w-[400px] w-[465px] h-[200px] overflow-y-scroll flex flex-col gap-5 shadow absolute md:top-100 top-120 bg-[#ffff]
-             z-10 hidde"
+                className="md:w-[400px] w-[350px] h-[200px] overflow-y-scroll flex flex-col gap-5 shadow absolute 
+                md:top-100 top-110 bg-[#ffff]
+             z-10 "
               >
                 <li className="hover:bg-gray-100 py-3 px-2 border-b ">
                   Newly Built
@@ -123,31 +123,36 @@ const Listing = () => {
               <input
                 type="text"
                 placeholder="Furnishing"
-                className=" w-[300px] border-none outline-none placeholder:text-[14px]"
+                className=" md:w-[400px] w-full border-none outline-none placeholder:text-[14px]"
+                onFocus={() => handleFocus("Furnishing")}
+                onBlur={() => handleBlur("Furnishing")}
               />
               <PiCaretRightThin className="font-bold " />
             </div>
-            <ul
-              className="md:w-[400px] w-[465px] h-[200px] overflow-y-scroll flex flex-col gap-5 shadow absolute md:top-85 top-127
-             bg-[#ffff] z-10 hidden"
-            >
-              <li className="hover:bg-gray-100 py-3 px-2 border-b ">
-                Newly Built
-              </li>
-              <li className="hover:bg-gray-100 py-3 px-2 border-b ">Old</li>
-              <li className="hover:bg-gray-100 py-3 px-2 border-b ">
-                Off-Plan
-              </li>
-              <li className="hover:bg-gray-100 py-3 px-2 border-b ">
-                Uncompleted Building
-              </li>
-              <li className="hover:bg-gray-100 py-3 px-2 border-b ">
-                Under Construction
-              </li>
-              <li className="hover:bg-gray-100 py-3 px-2 border-b ">
-                Fairly Used
-              </li>
-            </ul>
+            {FurnishingOpen && (
+              <ul
+                className="md:w-[400px] w-[350px] h-[200px] overflow-y-scroll flex flex-col gap-5 shadow absolute 
+                md:top-101 top-130
+             bg-[#ffff] z-10 "
+              >
+                <li className="hover:bg-gray-100 py-3 px-2 border-b ">
+                  Newly B
+                </li>
+                <li className="hover:bg-gray-100 py-3 px-2 border-b ">Old</li>
+                <li className="hover:bg-gray-100 py-3 px-2 border-b ">
+                  Off-Plan
+                </li>
+                <li className="hover:bg-gray-100 py-3 px-2 border-b ">
+                  Uncompleted Building
+                </li>
+                <li className="hover:bg-gray-100 py-3 px-2 border-b ">
+                  Under Construction
+                </li>
+                <li className="hover:bg-gray-100 py-3 px-2 border-b ">
+                  Fairly Used
+                </li>
+              </ul>
+            )}
           </div>
           <div>
             <div
@@ -157,31 +162,35 @@ const Listing = () => {
               <input
                 type="text"
                 placeholder="Property Type"
-                className=" w-[300px] border-none outline-none placeholder:text-[14px]"
+                className=" md:w-[400px] w-full border-none outline-none placeholder:text-[14px]"
+                onFocus={() => handleFocus("PropertyType")}
+                onBlur={() => handleBlur("PropertyType")}
               />
               <PiCaretRightThin className="font-bold " />
             </div>
-            <ul
-              className="md:w-[400px] w-[465px] h-[200px] overflow-y-scroll flex flex-col
-             gap-5 shadow absolute md:top-110 top-144 bg-[#ffff] hidden z-10"
-            >
-              <li className="hover:bg-gray-100 py-3 px-2 border-b ">
-                Newly Built
-              </li>
-              <li className="hover:bg-gray-100 py-3 px-2 border-b ">Old</li>
-              <li className="hover:bg-gray-100 py-3 px-2 border-b ">
-                Off-Plan
-              </li>
-              <li className="hover:bg-gray-100 py-3 px-2 border-b ">
-                Uncompleted Building
-              </li>
-              <li className="hover:bg-gray-100 py-3 px-2 border-b ">
-                Under Construction
-              </li>
-              <li className="hover:bg-gray-100 py-3 px-2 border-b ">
-                Fairly Used
-              </li>
-            </ul>
+            {PropertyTypeOpen && (
+              <ul
+                className="md:w-[400px] w-[350px] h-[200px] overflow-y-scroll flex flex-col
+             gap-5 shadow absolute md:top-120 top-145 bg-[#ffff] z-10"
+              >
+                <li className="hover:bg-gray-100 py-3 px-2 border-b ">
+                  Newly Built
+                </li>
+                <li className="hover:bg-gray-100 py-3 px-2 border-b ">Old</li>
+                <li className="hover:bg-gray-100 py-3 px-2 border-b ">
+                  Off-Plan
+                </li>
+                <li className="hover:bg-gray-100 py-3 px-2 border-b ">
+                  Uncompleted Building
+                </li>
+                <li className="hover:bg-gray-100 py-3 px-2 border-b ">
+                  Under Construction
+                </li>
+                <li className="hover:bg-gray-100 py-3 px-2 border-b ">
+                  Fairly Used
+                </li>
+              </ul>
+            )}
           </div>
           <div>
             <input
@@ -202,18 +211,22 @@ const Listing = () => {
                 type="number"
                 placeholder="Parking Spaces"
                 className=" w-[300px] border-none outline-none placeholder:text-[14px]"
+                onFocus={() => handleFocus("Parking")}
+                onBlur={() => handleBlur("Parking")}
               />
               <PiCaretRightThin className="font-bold " />
             </div>
 
-            <ul
-              className="md:w-[400px] w-[465px] h-[200px] overflow-y-scroll flex flex-col gap-5 shadow absolute
-             md:top-130 top-180 bg-[#ffff] hidden"
-            >
-              <li className="hover:bg-gray-100 py-3 px-2 border-b ">1</li>
-              <li className="hover:bg-gray-100 py-3 px-2 border-b ">2</li>
-              <li className="hover:bg-gray-100 py-3 px-2 border-b ">3</li>
-            </ul>
+            {ParkingOpen && (
+              <ul
+                className="md:w-[400px] w-[350px] h-[200px] overflow-y-scroll flex flex-col gap-5 shadow absolute
+             md:top-140 top-180 bg-[#ffff] "
+              >
+                <li className="hover:bg-gray-100 py-3 px-2 border-b ">1</li>
+                <li className="hover:bg-gray-100 py-3 px-2 border-b ">2</li>
+                <li className="hover:bg-gray-100 py-3 px-2 border-b ">3</li>
+              </ul>
+            )}
           </div>
         </div>
         <div>

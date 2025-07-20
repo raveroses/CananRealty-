@@ -1,5 +1,5 @@
 "use client";
-import { createContext, ReactNode, useState } from "react";
+import { ChangeEvent, createContext, ReactNode, useState } from "react";
 import { PropertyForsale } from "../data/PropertyListing";
 import { PropertyForRent } from "../data/PropertyListing";
 import { LandList } from "../data/PropertyListing";
@@ -7,6 +7,9 @@ import { Land } from "../data/PropertyListing";
 import { useRouter } from "next/navigation";
 import { JSX } from "react/jsx-runtime";
 import { Property } from "../data/PropertyListing";
+import { FormEvent } from "@formspree/react";
+import { toast } from "react-toastify";
+import axios from "axios";
 type ContextType = {
   buttonListing: JSX.Element[];
   Rentbutton: JSX.Element[];
@@ -18,6 +21,15 @@ type ContextType = {
   handleCardClick: () => void;
   isListingNext: boolean;
   handleNext: () => void;
+  createDetail: CreateDetail;
+  handleOnChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleCreateDetailFormSubmission: (e: FormEvent) => void;
+};
+
+type CreateDetail = {
+  category: string;
+  state: string;
+  city: string;
 };
 
 export const ContextInit = createContext<ContextType | null>(null);
@@ -91,6 +103,94 @@ const ContextKingdom = ({ children }: { children: ReactNode }) => {
   const handleCardClick = () => {
     router.push("/createListing");
   };
+
+  const [createDetail, setCreateDetail] = useState<CreateDetail>(() => {
+    try {
+      const stores = localStorage.getItem("store");
+
+      return stores
+        ? JSON.parse(stores)
+        : {
+            category: "",
+            state: "",
+            city: "",
+          };
+    } catch (err: unknown) {
+      console.log("Error parsing localStorage:", err);
+      return {
+        category: "",
+        state: "",
+        city: "",
+      };
+    }
+  });
+
+  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = e.target;
+    setCreateDetail((prev) => {
+      const updateDetail = { ...prev, [name]: value };
+      localStorage.setItem("store", JSON.stringify(updateDetail));
+      return updateDetail;
+    });
+  };
+
+  const handleCreateDetailField = (): boolean => {
+    let validation: boolean = false;
+    if (!createDetail.category || !createDetail.city || !createDetail.state) {
+      toast.error("Please fill all required fields");
+      validation = false;
+      return validation;
+    }
+
+    return (validation = true);
+  };
+
+  const handleCreateDetailFormSubmission = (e: FormEvent) => {
+    e.preventDefault();
+    // console.log("clicked me");
+    if (handleCreateDetailField()) {
+      console.log(true);
+    }
+    toast.success("success");
+  };
+
+  const CLOUD_NAME = "diptafc1s";
+  const UPLOAD_PRESET = "realestate";
+
+  const [images, setImages] = useState<File[]>([]);
+  const [urls, setUrls] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setImages(Array.from(e.target.files));
+    }
+  };
+  const uploadImages = async () => {
+    setLoading(true);
+    const uploadedUrls: string[] = [];
+
+    for (const image of images) {
+      const formData = new FormData();
+      formData.append("file", image);
+      formData.append("upload_preset", UPLOAD_PRESET);
+
+      try {
+        const res = await axios.post(
+          `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/upload`,
+          formData
+        );
+        uploadedUrls.push(res.data.secure_url);
+      } catch (err: unknown) {
+        console.log("Erroe Occur", err);
+        console.error("Upload failed for", image.name);
+      }
+    }
+
+    setUrls(uploadedUrls);
+    setLoading(false);
+  };
+
   return (
     <ContextInit.Provider
       value={{
@@ -104,6 +204,9 @@ const ContextKingdom = ({ children }: { children: ReactNode }) => {
         handleCardClick,
         isListingNext,
         handleNext,
+        createDetail,
+        handleOnChange,
+        handleCreateDetailFormSubmission,
       }}
     >
       {children}
