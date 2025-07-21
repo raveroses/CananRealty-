@@ -1,5 +1,5 @@
 "use client";
-import { ChangeEvent, createContext, ReactNode, useState } from "react";
+import { ChangeEvent, createContext, ReactNode, useRef, useState } from "react";
 import { PropertyForsale } from "../data/PropertyListing";
 import { PropertyForRent } from "../data/PropertyListing";
 import { LandList } from "../data/PropertyListing";
@@ -10,6 +10,7 @@ import { Property } from "../data/PropertyListing";
 import { FormEvent } from "@formspree/react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { RefObject } from "react";
 type ContextType = {
   buttonListing: JSX.Element[];
   Rentbutton: JSX.Element[];
@@ -20,10 +21,14 @@ type ContextType = {
   viewLandProduct: (id: number, names: string, category: string) => void;
   handleCardClick: () => void;
   isListingNext: boolean;
-  handleNext: () => void;
   createDetail: CreateDetail;
   handleOnChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handleCreateDetailFormSubmission: (e: FormEvent) => void;
+  handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  ref: RefObject<HTMLInputElement | null>;
+  urls: string[];
+  triggerFileSelect: () => void;
+  images: File[];
 };
 
 type CreateDetail = {
@@ -97,9 +102,6 @@ const ContextKingdom = ({ children }: { children: ReactNode }) => {
 
   const [isListingNext, setListingNext] = useState<boolean>(false);
 
-  const handleNext = () => {
-    setListingNext((prev) => !prev);
-  };
   const handleCardClick = () => {
     router.push("/createListing");
   };
@@ -133,6 +135,21 @@ const ContextKingdom = ({ children }: { children: ReactNode }) => {
       return updateDetail;
     });
   };
+  const CLOUD_NAME = "diptafc1s";
+  const UPLOAD_PRESET = "realestate";
+
+  const ref = useRef<HTMLInputElement | null>(null);
+  const [images, setImages] = useState<File[]>([]);
+  const [urls, setUrls] = useState<string[]>(() => {
+    try {
+      const getter = localStorage.getItem("store");
+      const parsed = getter ? JSON.parse(getter) : [];
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (err: unknown) {
+      console.log(err);
+      return [];
+    }
+  });
 
   const handleCreateDetailField = (): boolean => {
     let validation: boolean = false;
@@ -147,30 +164,20 @@ const ContextKingdom = ({ children }: { children: ReactNode }) => {
 
   const handleCreateDetailFormSubmission = (e: FormEvent) => {
     e.preventDefault();
-    // console.log("clicked me");
-    if (handleCreateDetailField()) {
-      console.log(true);
-    }
-    toast.success("success");
-  };
-
-  const CLOUD_NAME = "diptafc1s";
-  const UPLOAD_PRESET = "realestate";
-
-  const [images, setImages] = useState<File[]>([]);
-  const [urls, setUrls] = useState<string[]>([]);
-  const [loading, setLoading] = useState(false);
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setImages(Array.from(e.target.files));
+    if (handleCreateDetailField() && urls.length > 1) {
+      setListingNext((prev) => !prev);
     }
   };
-  const uploadImages = async () => {
-    setLoading(true);
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+    const selectedFiles = Array.from(files);
+    setImages(selectedFiles);
+
     const uploadedUrls: string[] = [];
 
-    for (const image of images) {
+    for (const image of selectedFiles) {
       const formData = new FormData();
       formData.append("file", image);
       formData.append("upload_preset", UPLOAD_PRESET);
@@ -181,16 +188,26 @@ const ContextKingdom = ({ children }: { children: ReactNode }) => {
           formData
         );
         uploadedUrls.push(res.data.secure_url);
-      } catch (err: unknown) {
-        console.log("Erroe Occur", err);
-        console.error("Upload failed for", image.name);
+      } catch (err) {
+        console.error("Upload failed for", image?.name, err);
       }
     }
 
-    setUrls(uploadedUrls);
-    setLoading(false);
-  };
+    setUrls((prev) => {
+      const updatedUrls = [...prev, ...uploadedUrls];
 
+      try {
+        localStorage.setItem("store", JSON.stringify(updatedUrls));
+      } catch (err) {
+        console.error("Failed to store image URLs:", err);
+      }
+
+      return updatedUrls;
+    });
+  };
+  const triggerFileSelect = () => {
+    ref.current?.click();
+  };
   return (
     <ContextInit.Provider
       value={{
@@ -203,10 +220,14 @@ const ContextKingdom = ({ children }: { children: ReactNode }) => {
         viewLandProduct,
         handleCardClick,
         isListingNext,
-        handleNext,
         createDetail,
         handleOnChange,
         handleCreateDetailFormSubmission,
+        handleFileChange,
+        ref,
+        urls,
+        triggerFileSelect,
+        images,
       }}
     >
       {children}

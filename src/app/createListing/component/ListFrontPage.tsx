@@ -4,19 +4,22 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import useContextRetrieval from "@/app/context/useContextRetrieval";
 import { ToastContainer, Bounce } from "react-toastify";
-import axios from "axios";
-import { useState } from "react";
 
 const ListFrontPage = () => {
   const {
     isListingNext,
     handleNext,
+    ref,
+    urls,
+    triggerFileSelect,
+    handleFileChange,
     handleOnChange,
     createDetail,
     handleCreateDetailFormSubmission,
   } = useContextRetrieval();
 
   console.log(createDetail);
+  console.log(urls);
 
   return (
     <div className={`md:px-20 px-[10px] ${isListingNext ? "hidden" : "block"}`}>
@@ -53,43 +56,42 @@ const ListFrontPage = () => {
           focus:outline-none focus:shadow-md focus:shadow-[#1266e3] placeholder:text-[14px]"
             onChange={handleOnChange}
           />
-
+          <input
+            type="file"
+            name="image"
+            ref={ref}
+            accept="image/*"
+            className=""
+            onChange={handleFileChange}
+            hidden
+          />
           <div className="images">
             <h3 className="text-[15px] font-semibold">Add photo</h3>
             <div className="imageCard flex gap-2 ">
               <div className="bg-blue-100 md:w-[100px] w-[150px] h-[100px] rounded-xl py-8">
-                <GoPlus className="mx-auto text-[25px] font-bold " />
+                <GoPlus
+                  className="mx-auto text-[25px] font-bold "
+                  onClick={triggerFileSelect}
+                />
               </div>
 
               <div className="w-[300px] flex gap-2 overflow-x-auto">
-                <Image
-                  src="/images/house2.jpg"
-                  alt="image-card"
-                  width={100}
-                  height={200}
-                  className="rounded-xl"
-                />
-                <Image
-                  src="/images/house2.jpg"
-                  alt="image-card"
-                  width={100}
-                  height={200}
-                  className="rounded-xl"
-                />
-                <Image
-                  src="/images/house2.jpg"
-                  alt="image-card"
-                  width={100}
-                  height={200}
-                  className="rounded-xl"
-                />
-                <Image
-                  src="/images/house2.jpg"
-                  alt="image-card"
-                  width={100}
-                  height={200}
-                  className="rounded-xl"
-                />
+                {urls &&
+                  urls.map((image, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className="md:min-w-[100px] min-w-[100px] h-[100px] relative"
+                      >
+                        <Image
+                          src={image}
+                          alt="image-card"
+                          fill
+                          className="rounded-xl object-cover object-center"
+                        />
+                      </div>
+                    );
+                  })}
               </div>
             </div>
           </div>
