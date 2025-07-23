@@ -1,24 +1,19 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import ContextKingdom from "./context/ContextKingdom";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+import { Inter, Poppins } from "next/font/google";
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
   subsets: ["latin"],
+  variable: "--font-inter",
 });
 
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "600", "700"],
   variable: "--font-poppins",
-  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -33,9 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} antialiased`}
-      >
+      <body className={` ${inter.variable} ${poppins.variable} antialiased`}>
         <ContextKingdom>
           <section className="z-50">
             <Navbar />

@@ -7,7 +7,7 @@ import usePersonStore from "./useStore";
 const Listing = () => {
   const { isListingNext } = useContextRetrieval();
 
-  const propertyTypes = useState<string[]>([
+  const [propertyTypes] = useState<string[]>([
     "Hotel",
     "Office spaces",
     "Shop",
@@ -37,6 +37,23 @@ const Listing = () => {
     "Supermarket",
     "Tank farm",
   ]);
+  const [condition] = useState<string[]>([
+    "Newly Built",
+    "Old",
+    "  Off-Plan",
+    " Uncompleted Building",
+    " Under Construction",
+    "   Fairly Used",
+  ]);
+  const [furnishing] = useState<string[]>([
+    "Newly Built",
+    "Old",
+    "  Off-Plan",
+    " Uncompleted Building",
+    " Under Construction",
+    "   Fairly Used",
+  ]);
+  const [parking] = useState<number[]>([1, 2, 3, 4, 5]);
 
   const {
     ConditionOpen,
@@ -47,7 +64,35 @@ const Listing = () => {
     handleBlur,
   } = usePersonStore();
 
-  console.log(ConditionOpen, FurnishingOpen, PropertyTypeOpen);
+  const propertyTypeMap = propertyTypes.map((property, index) => {
+    return (
+      <li className="hover:bg-gray-100 py-3 px-2 border-b " key={index}>
+        {property}
+      </li>
+    );
+  });
+  const furnishingTypeMap = furnishing.map((furnishing, index) => {
+    return (
+      <li className="hover:bg-gray-100 py-3 px-2 border-b " key={index}>
+        {furnishing}
+      </li>
+    );
+  });
+  const conditionTypeMap = condition.map((condition, index) => {
+    return (
+      <li className="hover:bg-gray-100 py-3 px-2 border-b " key={index}>
+        {condition}
+      </li>
+    );
+  });
+
+  const parkingTypeMap = parking.map((park, index) => {
+    return (
+      <li className="hover:bg-gray-100 py-3 px-2 border-b " key={index}>
+        {park}
+      </li>
+    );
+  });
 
   return (
     <section
@@ -96,22 +141,7 @@ const Listing = () => {
                 md:top-100 top-110 bg-[#ffff]
              z-10 "
               >
-                <li className="hover:bg-gray-100 py-3 px-2 border-b ">
-                  Newly Built
-                </li>
-                <li className="hover:bg-gray-100 py-3 px-2 border-b ">Old</li>
-                <li className="hover:bg-gray-100 py-3 px-2 border-b ">
-                  Off-Plan
-                </li>
-                <li className="hover:bg-gray-100 py-3 px-2 border-b ">
-                  Uncompleted Building
-                </li>
-                <li className="hover:bg-gray-100 py-3 px-2 border-b ">
-                  Under Construction
-                </li>
-                <li className="hover:bg-gray-100 py-3 px-2 border-b ">
-                  Fairly Used
-                </li>
+                {conditionTypeMap}
               </ul>
             )}
           </div>
@@ -135,22 +165,7 @@ const Listing = () => {
                 md:top-101 top-130
              bg-[#ffff] z-10 "
               >
-                <li className="hover:bg-gray-100 py-3 px-2 border-b ">
-                  Newly B
-                </li>
-                <li className="hover:bg-gray-100 py-3 px-2 border-b ">Old</li>
-                <li className="hover:bg-gray-100 py-3 px-2 border-b ">
-                  Off-Plan
-                </li>
-                <li className="hover:bg-gray-100 py-3 px-2 border-b ">
-                  Uncompleted Building
-                </li>
-                <li className="hover:bg-gray-100 py-3 px-2 border-b ">
-                  Under Construction
-                </li>
-                <li className="hover:bg-gray-100 py-3 px-2 border-b ">
-                  Fairly Used
-                </li>
+                {furnishingTypeMap}
               </ul>
             )}
           </div>
@@ -173,22 +188,7 @@ const Listing = () => {
                 className="md:w-[400px] w-[350px] h-[200px] overflow-y-scroll flex flex-col
              gap-5 shadow absolute md:top-120 top-145 bg-[#ffff] z-10"
               >
-                <li className="hover:bg-gray-100 py-3 px-2 border-b ">
-                  Newly Built
-                </li>
-                <li className="hover:bg-gray-100 py-3 px-2 border-b ">Old</li>
-                <li className="hover:bg-gray-100 py-3 px-2 border-b ">
-                  Off-Plan
-                </li>
-                <li className="hover:bg-gray-100 py-3 px-2 border-b ">
-                  Uncompleted Building
-                </li>
-                <li className="hover:bg-gray-100 py-3 px-2 border-b ">
-                  Under Construction
-                </li>
-                <li className="hover:bg-gray-100 py-3 px-2 border-b ">
-                  Fairly Used
-                </li>
+                {propertyTypeMap}
               </ul>
             )}
           </div>
@@ -222,9 +222,7 @@ const Listing = () => {
                 className="md:w-[400px] w-[350px] h-[200px] overflow-y-scroll flex flex-col gap-5 shadow absolute
              md:top-140 top-180 bg-[#ffff] "
               >
-                <li className="hover:bg-gray-100 py-3 px-2 border-b ">1</li>
-                <li className="hover:bg-gray-100 py-3 px-2 border-b ">2</li>
-                <li className="hover:bg-gray-100 py-3 px-2 border-b ">3</li>
+                {parkingTypeMap}
               </ul>
             )}
           </div>

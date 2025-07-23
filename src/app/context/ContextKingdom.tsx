@@ -1,5 +1,12 @@
 "use client";
-import { ChangeEvent, createContext, ReactNode, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  createContext,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { PropertyForsale } from "../data/PropertyListing";
 import { PropertyForRent } from "../data/PropertyListing";
 import { LandList } from "../data/PropertyListing";
@@ -106,32 +113,17 @@ const ContextKingdom = ({ children }: { children: ReactNode }) => {
     router.push("/createListing");
   };
 
-  const [createDetail, setCreateDetail] = useState<CreateDetail>(() => {
-    try {
-      const stores = localStorage.getItem("store");
-
-      return stores
-        ? JSON.parse(stores)
-        : {
-            category: "",
-            state: "",
-            city: "",
-          };
-    } catch (err: unknown) {
-      console.log("Error parsing localStorage:", err);
-      return {
-        category: "",
-        state: "",
-        city: "",
-      };
-    }
+  const [createDetail, setCreateDetail] = useState<CreateDetail>({
+    category: "",
+    state: "",
+    city: "",
   });
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     setCreateDetail((prev) => {
       const updateDetail = { ...prev, [name]: value };
-      localStorage.setItem("store", JSON.stringify(updateDetail));
+      localStorage.setItem("create-detail", JSON.stringify(updateDetail));
       return updateDetail;
     });
   };
@@ -140,16 +132,25 @@ const ContextKingdom = ({ children }: { children: ReactNode }) => {
 
   const ref = useRef<HTMLInputElement | null>(null);
   const [images, setImages] = useState<File[]>([]);
-  const [urls, setUrls] = useState<string[]>(() => {
+  const [urls, setUrls] = useState<string[]>([]);
+  useEffect(() => {
     try {
-      const getter = localStorage.getItem("store");
-      const parsed = getter ? JSON.parse(getter) : [];
-      return Array.isArray(parsed) ? parsed : [];
-    } catch (err: unknown) {
-      console.log(err);
-      return [];
+      const detail = localStorage.getItem("create-detail");
+      const urls = localStorage.getItem("uploaded-urls");
+
+      if (detail) {
+        setCreateDetail(JSON.parse(detail));
+      }
+      if (urls) {
+        const parsed = JSON.parse(urls);
+        if (Array.isArray(parsed)) {
+          setUrls(parsed);
+        }
+      }
+    } catch (err) {
+      console.error("Failed to load from localStorage", err);
     }
-  });
+  }, []);
 
   const handleCreateDetailField = (): boolean => {
     let validation: boolean = false;
@@ -169,6 +170,7 @@ const ContextKingdom = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  ///BEGINING OF LISTING IMAGES
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
@@ -197,7 +199,7 @@ const ContextKingdom = ({ children }: { children: ReactNode }) => {
       const updatedUrls = [...prev, ...uploadedUrls];
 
       try {
-        localStorage.setItem("store", JSON.stringify(updatedUrls));
+        localStorage.setItem("uploaded-urls", JSON.stringify(updatedUrls));
       } catch (err) {
         console.error("Failed to store image URLs:", err);
       }
@@ -208,6 +210,8 @@ const ContextKingdom = ({ children }: { children: ReactNode }) => {
   const triggerFileSelect = () => {
     ref.current?.click();
   };
+
+  ////ENDING OF IMAGE
   return (
     <ContextInit.Provider
       value={{

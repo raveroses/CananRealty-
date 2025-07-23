@@ -19,14 +19,8 @@ type Service = {
 };
 
 const Body = () => {
-  const {
-    buttonListing,
-    Rentbutton,
-    RentPropertyBtn,
-    SalesProduct,
-    RentProduct,
-    viewProduct,
-  } = useContextRetrieval();
+  const { buttonListing, Rentbutton, SalesProduct, RentProduct, viewProduct } =
+    useContextRetrieval();
   const [serviceContent] = useState<Service[]>([
     {
       heading: "Buy a property",

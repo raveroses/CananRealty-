@@ -7,17 +7,17 @@ import useContextRetrieval from "@/app/context/useContextRetrieval";
 const CreateCard = () => {
   const { handleCardClick } = useContextRetrieval();
   return (
-    <section className="w-full h-full flex md:flex-row flex-col  items-center justify-between mt-20">
-      <div className="flex flex-col gap-5 sidebar md:w-[30%] w-full h-[500px] bg-[#ffffff] shadow px-5 py-10">
+    <section className="w-full h-full flex md:flex-row flex-col  items-center justify-between md:mt-20">
+      <div className="flex flex-col  gap-5 sidebar md:w-[30%] w-full h-[500px] bg-[#ffffff] shadow px-5 py-10 md:block hidden">
         <h3 className="text-[20px] font-bold">Create new Listing</h3>
-        <div className="flex items-center text-[14px] font-semibold">
+        <div className="flex items-center text-[14px] py-5 font-semibold">
           <span className="bg-[#1266e3] text-[20px] text-white rounded-full p-2 mr-5">
             <IoPricetagsOutline />
           </span>
           Choose Listing Type
         </div>
 
-        <div className="count flex items-center justify-between">
+        <div className="count flex items-center justify-between ">
           <div className="flex items-center justify-between text-[14px] font-semibold">
             <span className="bg-[#1266e3] text-[20px] text-white rounded-full p-2 mr-5">
               <GiPriceTag />
@@ -31,9 +31,9 @@ const CreateCard = () => {
         <h2 className="text-[20px] font-bold pb-5 md:text-left text-center">
           Choose Listing Type
         </h2>
-        <div className="cardFlex flex md:flex-row flex-col gap-10 items-center">
+        <div className="cardFlex flex md:flex-row flex-col md:gap-10 gap-5 items-center">
           <div
-            className="bg-[#ffffff] w-[250px] h-[200px] shadow text-center p-3 rounded-xl"
+            className="bg-[#ffffff] md:w-[250px] w-full md:h-[200px] h-[150px] shadow text-center p-3 rounded-xl"
             onClick={handleCardClick}
           >
             <div className="text-[35px] rounded-full inline-block bg-[#1266e3] text-white p-3 mx-auto ">
@@ -45,7 +45,7 @@ const CreateCard = () => {
             </p>
           </div>
           <div
-            className="bg-[#ffffff] w-[250px] h-[200px] shadow text-center p-3 rounded-xl"
+            className="bg-[#ffffff] md:w-[250px] w-full md:h-[200px] h-[150px] shadow text-center p-3 rounded-xl"
             onClick={handleCardClick}
           >
             <div className="text-[35px] rounded-full inline-block bg-[#1266e3] text-white p-3 mx-auto ">
@@ -56,7 +56,7 @@ const CreateCard = () => {
             <p className="text-[15px]"> List a Land for sale or rent</p>
           </div>
           <div
-            className="bg-[#ffffff] w-[250px] h-[200px] shadow text-center p-3 rounded-xl"
+            className="bg-[#ffffff] md:w-[250px] w-full md:h-[200px] h-[150px] shadow text-center p-3 rounded-xl"
             onClick={handleCardClick}
           >
             <div className="text-[35px] rounded-full inline-block bg-[#1266e3] text-white p-3 mx-auto ">

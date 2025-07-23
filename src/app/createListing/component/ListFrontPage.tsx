@@ -8,7 +8,6 @@ import { ToastContainer, Bounce } from "react-toastify";
 const ListFrontPage = () => {
   const {
     isListingNext,
-    handleNext,
     ref,
     urls,
     triggerFileSelect,
@@ -17,9 +16,6 @@ const ListFrontPage = () => {
     createDetail,
     handleCreateDetailFormSubmission,
   } = useContextRetrieval();
-
-  console.log(createDetail);
-  console.log(urls);
 
   return (
     <div className={`md:px-20 px-[10px] ${isListingNext ? "hidden" : "block"}`}>
