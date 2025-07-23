@@ -26,7 +26,7 @@ const ProductListingBody = () => {
             return (
               <div
                 key={index}
-                className="relative max-w-full md:w-[220px] w-[210px]  h-[190px] rounded-xl relative"
+                className="max-w-full md:w-[220px] w-[210px]  h-[190px] rounded-xl py-2 px-2 "
                 style={{
                   backgroundImage: `url(${property.image})`,
                   backgroundPosition: "center",
@@ -34,13 +34,10 @@ const ProductListingBody = () => {
                   backgroundSize: "cover",
                 }}
               >
-                <div className="loveIcon absolute top-4 right-4 text-white text-[20px] cursor-pointer">
+                <div className="loveIcon flex justify-end  text-white text-[20px] mb-[106px] ">
                   <FaRegHeart />
                 </div>
-                <div
-                  className="bg-white absolute md:top-35 top-30 md:left-2 flex md:gap-12 left-3 gap-7 
-                 p-[5px] rounded"
-                >
+                <div className="bg-white w-full flex justify-between p-[5px] rounded">
                   <div>
                     <h3 className="text-[11px]">{property.heading}</h3>
                     <p className="text-[10px]">{property.paragraph}</p>
@@ -86,7 +83,7 @@ const ProductListingBody = () => {
               return (
                 <div
                   key={index}
-                  className="relative max-w-full md:w-[220px] w-[210px]  h-[190px] rounded-xl relative"
+                  className="max-w-full md:w-[220px] w-[210px]  h-[190px] rounded-xl py-2 px-2 "
                   style={{
                     backgroundImage: `url(${property.image})`,
                     backgroundPosition: "center",
@@ -94,13 +91,10 @@ const ProductListingBody = () => {
                     backgroundSize: "cover",
                   }}
                 >
-                  <div className="loveIcon absolute top-4 right-4 text-white text-[20px] cursor-pointer">
+                  <div className="loveIcon flex justify-end  text-white text-[20px] mb-[106px] ">
                     <FaRegHeart />
                   </div>
-                  <div
-                    className="bg-white absolute md:top-35 top-30 md:left-2 flex md:gap-12 left-3 gap-7 
-                 p-[5px] rounded"
-                  >
+                  <div className="bg-white w-full flex justify-between p-[5px] rounded">
                     <div>
                       <h3 className="text-[11px]">{property.heading}</h3>
                       <p className="text-[10px]">{property.paragraph}</p>

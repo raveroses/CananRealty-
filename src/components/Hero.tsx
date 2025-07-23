@@ -58,7 +58,7 @@ const Hero = () => {
             Let’s find a home that’s perfect for you
           </p>
 
-          <div className="search text-black md:w-[500px] w-[370px]  max-w-full mt-[20px] ">
+          <div className="search text-black md:w-[500px] w-[350px]  max-w-full mt-[20px] ">
             <div className="categoryName flex justify-between bg-white py-1 px-4 w-[200px] rounded-t-md text-[14px] border-b-1 border-gray-100">
               <h3 className="border-b-2 md:text-[15px] text-[13px]">All</h3>
               <h3 className="border-b-2 md:text-[15px] text-[13px]">

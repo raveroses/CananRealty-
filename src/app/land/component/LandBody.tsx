@@ -26,7 +26,7 @@ const LandBody = () => {
               return (
                 <div
                   key={index}
-                  className="relative max-w-full md:w-[220px] w-[210px]  h-[190px] rounded-xl relative"
+                  className="max-w-full md:w-[220px] w-[210px]  h-[190px] rounded-xl py-2 px-2 "
                   style={{
                     backgroundImage: `url(${land.image})`,
                     backgroundPosition: "center",
@@ -34,10 +34,10 @@ const LandBody = () => {
                     backgroundSize: "cover",
                   }}
                 >
-                  <div className="loveIcon absolute top-4 right-4 text-white text-[20px]">
+                  <div className="loveIcon flex justify-end  text-white text-[20px] mb-[106px] ">
                     <FaRegHeart />
                   </div>
-                  <div className="bg-white md:w-[200px] w-[185px] absolute md:top-35 top-30 md:left-2 flex justify-between left-3 p-[5px] rounded">
+                  <div className="bg-white w-full flex justify-between p-[5px] rounded">
                     <div>
                       <h3 className="text-[11px]">{land.names}</h3>
                       <p className="text-[10px]">{land.location}</p>
