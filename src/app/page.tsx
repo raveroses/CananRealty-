@@ -2,7 +2,7 @@ import Hero from "@/components/Hero";
 import Body from "@/components/Body";
 const Home = () => {
   return (
-    <section>
+    <section className="overflow-hidden">
       <Hero />
       <Body />
     </section>

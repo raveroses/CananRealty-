@@ -9,7 +9,7 @@ const LandBody = () => {
       <section className="md:px-20 px-[10px]  my-20">
         <div className="flex items-center justify-between">
           <div className="heads">
-            <h1 className="md:text-[30px] text-[25px] font-bold">
+            <h1 className="md:text-[30px] text-[22px] font-bold">
               Residential
             </h1>
             <p className="text-[15px]">25 Residential Land Found </p>
@@ -20,7 +20,7 @@ const LandBody = () => {
           </div>
         </div>
 
-        <section className=" grid md:grid-cols-4 grid-cols-2 md:gap-15 gap-5 items-center mt-10">
+        <section className=" grid md:grid-cols-4 grid-cols-1 md:gap-15 gap-5 items-center mt-10">
           {LandList &&
             LandList.map((land, index) => {
               return (

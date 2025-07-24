@@ -96,12 +96,12 @@ const Listing = () => {
 
   return (
     <section
-      className={`bg-[#ffff] shadow md:w-[900px] w-full mx-auto my-20 py-10  md:px-10 px-[10px] ${
+      className={`bg-[#ffff] shadow md:w-[900px] mx-auto my-20 py-10 md:px-10 px-[10px] ${
         isListingNext ? "block" : "hidden"
       }`}
     >
-      <form action="" className="flex flex-col gap-5">
-        <div className="flexArea grid md:grid-cols-2 grid-col-1 items-center gap-5">
+      <form className="flex flex-col gap-5 w-full">
+        <div className="flexArea grid md:grid-cols-2 grid-col-1 items-center gap-5  w-full">
           <div>
             <p className="text-right text-[13px]">0/60</p>
             <input
@@ -129,7 +129,7 @@ const Listing = () => {
               <input
                 type="text"
                 placeholder="condition"
-                className=" md:w-[400px] w-full border-none outline-none placeholder:text-[14px]"
+                className="  w-full border-none outline-none placeholder:text-[14px]"
                 onFocus={() => handleFocus("Condition")}
                 onBlur={() => handleBlur("Condition")}
               />
@@ -137,8 +137,8 @@ const Listing = () => {
             </div>
             {ConditionOpen && (
               <ul
-                className="md:w-[400px] w-[350px] h-[200px] overflow-y-scroll flex flex-col gap-5 shadow absolute 
-                md:top-100 top-110 bg-[#ffff]
+                className="md:w-[400px] w-[300px] h-[200px] overflow-y-scroll flex flex-col gap-5 shadow absolute 
+                md:top-100 top-98 bg-[#ffff]
              z-10 "
               >
                 {conditionTypeMap}
@@ -153,7 +153,7 @@ const Listing = () => {
               <input
                 type="text"
                 placeholder="Furnishing"
-                className=" md:w-[400px] w-full border-none outline-none placeholder:text-[14px]"
+                className="  w-full border-none outline-none placeholder:text-[14px]"
                 onFocus={() => handleFocus("Furnishing")}
                 onBlur={() => handleBlur("Furnishing")}
               />
@@ -161,8 +161,8 @@ const Listing = () => {
             </div>
             {FurnishingOpen && (
               <ul
-                className="md:w-[400px] w-[350px] h-[200px] overflow-y-scroll flex flex-col gap-5 shadow absolute 
-                md:top-101 top-130
+                className="md:w-[400px] w-[300px] h-[200px] overflow-y-scroll flex flex-col gap-5 shadow absolute 
+                md:top-101 top-[460px]
              bg-[#ffff] z-10 "
               >
                 {furnishingTypeMap}
@@ -177,7 +177,7 @@ const Listing = () => {
               <input
                 type="text"
                 placeholder="Property Type"
-                className=" md:w-[400px] w-full border-none outline-none placeholder:text-[14px]"
+                className="  w-full border-none outline-none placeholder:text-[14px]"
                 onFocus={() => handleFocus("PropertyType")}
                 onBlur={() => handleBlur("PropertyType")}
               />
@@ -185,8 +185,8 @@ const Listing = () => {
             </div>
             {PropertyTypeOpen && (
               <ul
-                className="md:w-[400px] w-[350px] h-[200px] overflow-y-scroll flex flex-col
-             gap-5 shadow absolute md:top-120 top-145 bg-[#ffff] z-10"
+                className="md:w-[400px] w-[300px] h-[200px] overflow-y-scroll flex flex-col
+             gap-5 shadow absolute md:top-120 top-[530px] bg-[#ffff] z-10"
               >
                 {propertyTypeMap}
               </ul>
@@ -210,7 +210,7 @@ const Listing = () => {
               <input
                 type="number"
                 placeholder="Parking Spaces"
-                className=" w-[300px] border-none outline-none placeholder:text-[14px]"
+                className=" w-full border-none outline-none placeholder:text-[14px]"
                 onFocus={() => handleFocus("Parking")}
                 onBlur={() => handleBlur("Parking")}
               />
@@ -219,8 +219,8 @@ const Listing = () => {
 
             {ParkingOpen && (
               <ul
-                className="md:w-[400px] w-[350px] h-[200px] overflow-y-scroll flex flex-col gap-5 shadow absolute
-             md:top-140 top-180 bg-[#ffff] "
+                className="md:w-[400px] w-[300px] h-[200px] overflow-y-scroll flex flex-col gap-5 shadow absolute
+             md:top-140 top-[670px] bg-[#ffff] "
               >
                 {parkingTypeMap}
               </ul>
@@ -243,7 +243,7 @@ const Listing = () => {
             <input
               type="number"
               placeholder="Price"
-              className=" w-[300px] border-none outline-none placeholder:text-[14px]"
+              className=" w-full border-none outline-none placeholder:text-[14px]"
             />
           </div>
           <div className="my-6">

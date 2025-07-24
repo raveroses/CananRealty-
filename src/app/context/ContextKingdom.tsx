@@ -74,7 +74,7 @@ const ContextKingdom = ({ children }: { children: ReactNode }) => {
   const buttonListing: JSX.Element[] = saleButton.map((button, index) => {
     return (
       <div
-        className={`border-1 text-center md:text-[13px] text-[12px]  py-1 px-2 rounded cursor-pointer ${
+        className={`border-1 text-center md:text-[13px] text-[10px] py-1 px-2 rounded cursor-pointer ${
           SalesBtnId === button.toLowerCase() && "bg-black text-white"
         }`}
         key={index}
@@ -87,7 +87,7 @@ const ContextKingdom = ({ children }: { children: ReactNode }) => {
   const Rentbutton: JSX.Element[] = saleButton.map((button, index) => {
     return (
       <div
-        className={`border-1 text-center md:text-[13px] text-[12px]  py-1 px-2 rounded cursor-pointer ${
+        className={`border-1 text-center md:text-[13px] text-[10px]  py-1 px-2 rounded cursor-pointer ${
           RentBtnId === button.toLowerCase() && "bg-black text-white"
         }`}
         key={index}

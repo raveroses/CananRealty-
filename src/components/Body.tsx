@@ -49,24 +49,24 @@ const Body = () => {
     <section className="md:px-20 px-[10px] py-10">
       <div className="flex items-center justify-between">
         <div className="heads">
-          <h1 className="md:text-[30px] text-[25px] font-bold">
+          <h1 className="md:text-[30px] text-[22px] font-bold">
             Property For Sales
           </h1>
           <p className="text-[15px]">Unlimited Offer</p>
         </div>
 
-        <div className="category grid md:grid-cols-4 grid-cols-2 items-center md:gap-[20px] gap-[10px]">
+        <div className="category grid md:grid-cols-4 grid-cols-2 items-center md:gap-[20px] gap-[5px]">
           {buttonListing}
         </div>
       </div>
 
-      <section className="grid md:grid-cols-4 grid-cols-2 md:gap-19 gap-5 items-center mt-20">
+      <section className="grid md:grid-cols-4 grid-cols-1 md:gap-19 gap-5 items-center mt-20">
         {SalesProduct &&
           SalesProduct.map((property, index) => {
             return (
               <div
                 key={index}
-                className="max-w-full md:w-[220px] w-[210px]  h-[190px] rounded-xl py-2 px-2 "
+                className="max-w-full md:w-[220px] w-full h-[190px] rounded-xl py-2 px-2 "
                 style={{
                   backgroundImage: `url(${property.image})`,
                   backgroundPosition: "center",
@@ -101,7 +101,7 @@ const Body = () => {
       </section>
       <Link href="/property">
         {" "}
-        <button className="w-[200px] md:mx-100 mx-30 my-5 bg-[#1266e3] cursor-pointer text-white text-font text-[13px] p-2 rounded ">
+        <button className="md:w-[200px] w-full md:mx-100  my-5 bg-[#1266e3] cursor-pointer text-white text-font text-[13px] p-2 rounded ">
           VIew More
         </button>
       </Link>
@@ -152,7 +152,7 @@ const Body = () => {
       <section className="rent my-20">
         <div className="flex items-center justify-between ">
           <div className="heads">
-            <h1 className="md:text-[30px] text-[25px] font-bold">
+            <h1 className="md:text-[30px] text-[22px] font-bold">
               Property For Rent
             </h1>
             <p className="text-[15px]">Unlimited Offer</p>
@@ -163,13 +163,13 @@ const Body = () => {
           </div>
         </div>
 
-        <section className="grid md:grid-cols-4 grid-cols-2 md:gap-19 gap-5 items-center mt-20">
+        <section className="grid md:grid-cols-4 grid-cols-1 md:gap-19 gap-5 items-center mt-20">
           {RentProduct &&
             RentProduct.map((property, index) => {
               return (
                 <div
                   key={index}
-                  className="max-w-full md:w-[220px] w-[210px]  h-[190px] rounded-xl py-2 px-2 "
+                  className="max-w-full md:w-[220px] w-full  h-[190px] rounded-xl py-2 px-2 "
                   style={{
                     backgroundImage: `url(${property.image})`,
                     backgroundPosition: "center",
@@ -203,7 +203,7 @@ const Body = () => {
             })}
         </section>
         <Link href="/property">
-          <button className="w-[200px] md:mx-120 mx-30 my-5 bg-[#1266e3] text-white text-font text-[13px]  cursor-pointer p-2 rounded ">
+          <button className="md:w-[200px] w-full md:mx-120  my-5 bg-[#1266e3] text-white text-font text-[13px]  cursor-pointer p-2 rounded ">
             VIew More
           </button>
         </Link>

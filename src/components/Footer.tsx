@@ -15,17 +15,17 @@ const Footer = () => {
         />
       </div>
 
-      <div className="grid md:grid-cols-5 grid-cols-2 items-center md:gap-30 gap-10">
-        <div className="sbscribe">
+      <div className="grid md:grid-cols-5 grid-cols-2 items-center md:gap-30 gap-[10px]">
+        <div className="subscribe">
           <h3 className="text-[14px] font-bold">Subscribe</h3>
           <p className="text-[13px] font-medium">Keep Yourself Upto Date</p>
-          <div className=" md:w-[220px] w-[180px] border  border-white flex items-center gap-5 p-2">
+          <div className=" md:w-[220px] w-[150px] border  border-white flex items-center md:gap-5 gap-1 p-2">
             <input
               type="email"
               name=""
               id=""
               placeholder="Enter your email "
-              className="md:w-[150px] w-[130px] px-1 text-black text-[13px] bg-gray-100 placeholder:text-black placeholder:text-[10px] rounded border-none outline-none focus:shadow-[0px_3px_16px_#0d1c39]  focus:border-white "
+              className="md:w-[150px] w-[110px] px-1 text-black text-[13px] bg-gray-100 placeholder:text-black placeholder:text-[10px] rounded border-none outline-none focus:shadow-[0px_3px_16px_#0d1c39]  focus:border-white "
             />
             <FaRegPaperPlane className="cursor-pointer" />
           </div>
