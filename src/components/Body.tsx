@@ -66,7 +66,7 @@ const Body = () => {
             return (
               <div
                 key={index}
-                className="max-w-full md:w-[220px] w-full h-[190px] rounded-xl py-2 px-2 "
+                className="max-w-full md:w-[220px] w-full md:h-[190px] h-[220px] rounded-xl py-2 px-2 "
                 style={{
                   backgroundImage: `url(${property.image})`,
                   backgroundPosition: "center",
@@ -74,7 +74,7 @@ const Body = () => {
                   backgroundSize: "cover",
                 }}
               >
-                <div className="loveIcon flex justify-end  text-white text-[20px] mb-[106px] ">
+                <div className="loveIcon flex justify-end  text-white text-[20px] mb-[115px] ">
                   <FaRegHeart />
                 </div>
                 <div className="bg-white w-full flex justify-between p-[5px] rounded">
@@ -169,7 +169,7 @@ const Body = () => {
               return (
                 <div
                   key={index}
-                  className="max-w-full md:w-[220px] w-full  h-[190px] rounded-xl py-2 px-2 "
+                  className="max-w-full md:w-[220px] w-full  md:h-[190px] h-[220px] rounded-xl py-2 px-2 "
                   style={{
                     backgroundImage: `url(${property.image})`,
                     backgroundPosition: "center",
@@ -177,7 +177,7 @@ const Body = () => {
                     backgroundSize: "cover",
                   }}
                 >
-                  <div className="loveIcon flex justify-end  text-white text-[20px] mb-[106px] ">
+                  <div className="loveIcon flex justify-end  text-white text-[20px] mb-[115px] ">
                     <FaRegHeart />
                   </div>
                   <div className="bg-white w-full flex justify-between p-[5px] rounded">
