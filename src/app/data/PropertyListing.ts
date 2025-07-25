@@ -6,6 +6,7 @@ export type Property = {
   paragraph: string;
   view: string;
   service: string;
+  price: number;
 };
 export type Land = {
   id: number;
@@ -102,6 +103,7 @@ export const PropertyForsale: Property[] = [
     paragraph: "132 Greene Ave",
     view: "View",
     service: "sell",
+    price: 300000,
   },
   {
     id: 2,
@@ -111,6 +113,7 @@ export const PropertyForsale: Property[] = [
     paragraph: "132 Greene Ave",
     view: "View",
     service: "sell",
+    price: 55000000,
   },
   {
     id: 3,
@@ -120,15 +123,17 @@ export const PropertyForsale: Property[] = [
     paragraph: "132 Greene Ave",
     view: "View",
     service: "sell",
+    price: 1000000,
   },
   {
     id: 4,
     category: "Home",
     image: "/images/greens.jpg",
-    heading: " Luxury Family Home",
+    heading: " Samir Family Home",
     paragraph: "132 Greene Ave",
     view: "View",
     service: "sell",
+    price: 110000000,
   },
 ];
 export const PropertyForRent: Property[] = [
@@ -140,33 +145,37 @@ export const PropertyForRent: Property[] = [
     paragraph: "132 Greene Ave",
     view: "View",
     service: "rent",
+    price: 700000,
   },
   {
     id: 2,
     category: "Apartment",
     image: "/images/sky.jpg",
-    heading: " Luxury Family Home",
+    heading: "  Family Home",
     paragraph: "132 Greene Ave",
     view: "View",
     service: "rent",
+    price: 1700000,
   },
   {
     id: 3,
     category: "Villa",
     image: "/images/sky2.jpg",
-    heading: " Luxury Family Home",
+    heading: " Samba Home",
     paragraph: "132 Greene Ave",
     view: "View",
     service: "rent",
+    price: 2000000,
   },
   {
     id: 4,
     category: "Home",
     image: "/images/greens.jpg",
-    heading: " Luxury Family Home",
+    heading: " Fallman Home",
     paragraph: "132 Greene Ave",
     view: "View",
     service: "rent",
+    price: 700000,
   },
   {
     id: 5,
@@ -176,6 +185,7 @@ export const PropertyForRent: Property[] = [
     paragraph: "132 Greene Ave",
     view: "View",
     service: "rent",
+    price: 3000000,
   },
   {
     id: 6,
@@ -185,6 +195,7 @@ export const PropertyForRent: Property[] = [
     paragraph: "132 Greene Ave",
     view: "View",
     service: "rent",
+    price: 700000,
   },
 ];
 
@@ -207,17 +218,27 @@ export const LandList: Land[] = [
     title: ["Registered Survey", "Deed of Assignment"],
     location: "Ido",
     sqm: 500,
-    price: 1000000,
+    price: 1500000,
   },
   {
     id: 3,
     names: "Ile Aje",
-    category: "Residential",
+    category: "Commercial",
     image: "/images/box-first.jpg",
     title: ["Registered Survey", "Deed of Assignment"],
     location: "Moniya",
     sqm: 500,
-    price: 1600000,
+    price: 2500000,
+  },
+  {
+    id: 3,
+    names: "Savanah",
+    category: "Commercial",
+    image: "/images/box-first.jpg",
+    title: ["Registered Survey", "Deed of Assignment"],
+    location: "Moniya",
+    sqm: 500,
+    price: 2500000,
   },
 ];
 // export default PropertyListing;

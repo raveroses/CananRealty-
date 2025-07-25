@@ -7,9 +7,11 @@ import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import { MdOutlineVilla } from "react-icons/md";
 import { CiHome } from "react-icons/ci";
 import "swiper/css";
+import useContextRetrieval from "@/app/context/useContextRetrieval";
 
 type Image = string[];
 const Hero = () => {
+  const { productName, handleProductSearchOnchange } = useContextRetrieval();
   const images: Image = [
     "/images/Modern2.png",
     "/images/unsplash.jpeg",
@@ -33,6 +35,7 @@ const Hero = () => {
       </SwiperSlide>
     );
   });
+
   return (
     <section className="relative z-0">
       <Swiper
@@ -71,9 +74,11 @@ const Hero = () => {
             <div className="input bg-white flex justify-between  items-center px-4 py-2 rounded rounded-l-none">
               <input
                 type="text"
+                value={productName}
                 placeholder="Enter Detail"
                 className="md:w-[400px] w-[200px] bg-gray-300 p-1 border-none outline-none focus:border-[#0d1c39]
                  focus:shadow-[0px_3px_16px_#0d1c39] rounded placeholder:text-[14px] "
+                onChange={handleProductSearchOnchange}
               />
               <CiSearch className="text-[35px] font-bold text-white bg-black px-2 rounded-full" />
             </div>

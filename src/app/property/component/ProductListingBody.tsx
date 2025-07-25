@@ -1,6 +1,9 @@
 "use client";
 import { FaRegHeart } from "react-icons/fa";
 import useContextRetrieval from "@/app/context/useContextRetrieval";
+import { LuBath } from "react-icons/lu";
+import { RiSofaLine } from "react-icons/ri";
+import { IoBedOutline } from "react-icons/io5";
 const ProductListingBody = () => {
   const { buttonListing, SalesProduct, RentProduct, Rentbutton, viewProduct } =
     useContextRetrieval();
@@ -20,40 +23,57 @@ const ProductListingBody = () => {
         </div>
       </div>
 
-      <section className="grid md:grid-cols-4 grid-cols-1 md:gap-19 gap-5 items-center mt-20">
+      <section className="grid md:grid-cols-3 grid-cols-1 md:gap-19 gap-5 items-center mt-20">
         {SalesProduct &&
           SalesProduct.map((property, index) => {
             return (
-              <div
-                key={index}
-                className="max-w-full md:w-[220px] w-full h-[190px] rounded-xl py-2 px-2 "
-                style={{
-                  backgroundImage: `url(${property.image})`,
-                  backgroundPosition: "center",
-                  backgroundRepeat: "no-repeat",
-                  backgroundSize: "cover",
-                }}
-              >
-                <div className="loveIcon flex justify-end  text-white text-[20px] mb-[106px] ">
-                  <FaRegHeart />
-                </div>
-                <div className="bg-white w-full flex justify-between p-[5px] rounded">
-                  <div>
-                    <h3 className="text-[11px]">{property.heading}</h3>
-                    <p className="text-[10px]">{property.paragraph}</p>
+              <div key={index}>
+                <div
+                  className="max-w-full md:w-[320px] w-full md:h-[190px] h-[250px] rounded-t py-2 px-2 "
+                  style={{
+                    backgroundImage: `url(${property.image})`,
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover",
+                  }}
+                >
+                  <div className="loveIcon flex justify-end  text-white text-[20px] ">
+                    <FaRegHeart />
                   </div>
-                  <button
-                    className="text-[10px] border-1 px-3 py-0 rounded bg-[#1266e3] text-white cursor-pointer"
-                    onClick={() =>
-                      viewProduct(
-                        property.id,
-                        property.service,
-                        property.category
-                      )
-                    }
-                  >
-                    {property.view}
-                  </button>
+                </div>
+                <div
+                  className="bg-white w-full flex justify-between p-[5px] rounded-b-xl shadow px-5"
+                  onClick={() =>
+                    viewProduct(
+                      property.id,
+                      property.service,
+                      property.category
+                    )
+                  }
+                >
+                  <div>
+                    <h3 className="text-[15px] font-semibold">
+                      {property.heading}
+                    </h3>
+                    <p className="text-[14px]">{property.paragraph}</p>
+                  </div>
+                  <div className="price-Infographic">
+                    <h3 className="font-medium text-right ">$3,500,000</h3>
+                    <div className="infographic flex items-center gap-3">
+                      <div className="flex gap-1 items-center">
+                        <h2 className="md:text-[14px] text-[12px]">4</h2>
+                        <IoBedOutline className="md:text-[15px] text-[12px]" />
+                      </div>
+                      <div className="flex gap-1 items-center">
+                        <h2 className="md:text-[14px] text-[12px]">2</h2>
+                        <LuBath className="md:text-[15px] text-[12px]" />
+                      </div>
+                      <div className="flex gap-1 items-center">
+                        <h2 className="md:text-[14px] text-[12px]">4</h2>
+                        <RiSofaLine className="md:text-[15px] text-[12px]" />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             );
@@ -77,40 +97,57 @@ const ProductListingBody = () => {
           </div>
         </div>
 
-        <section className="grid md:grid-cols-4 grid-cols-1 md:gap-19 gap-5 items-center mt-20">
+        <section className="grid md:grid-cols-3 grid-cols-1 md:gap-19 gap-5 items-center mt-20">
           {RentProduct &&
             RentProduct.map((property, index) => {
               return (
-                <div
-                  key={index}
-                  className="max-w-full md:w-[220px] w-full  h-[190px] rounded-xl py-2 px-2 "
-                  style={{
-                    backgroundImage: `url(${property.image})`,
-                    backgroundPosition: "center",
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "cover",
-                  }}
-                >
-                  <div className="loveIcon flex justify-end  text-white text-[20px] mb-[106px] ">
-                    <FaRegHeart />
-                  </div>
-                  <div className="bg-white w-full flex justify-between p-[5px] rounded">
-                    <div>
-                      <h3 className="text-[11px]">{property.heading}</h3>
-                      <p className="text-[10px]">{property.paragraph}</p>
+                <div key={index}>
+                  <div
+                    className="max-w-full md:w-[320px] w-full md:h-[190px] h-[250px] rounded-t py-2 px-2 "
+                    style={{
+                      backgroundImage: `url(${property.image})`,
+                      backgroundPosition: "center",
+                      backgroundRepeat: "no-repeat",
+                      backgroundSize: "cover",
+                    }}
+                  >
+                    <div className="loveIcon flex justify-end  text-white text-[20px] ">
+                      <FaRegHeart />
                     </div>
-                    <button
-                      className="text-[10px] border-1 px-3 py-0 rounded bg-[#1266e3] text-white cursor-pointer"
-                      onClick={() =>
-                        viewProduct(
-                          property.id,
-                          property.service,
-                          property.category
-                        )
-                      }
-                    >
-                      {property.view}
-                    </button>
+                  </div>
+                  <div
+                    className="bg-white w-full flex justify-between p-[5px] rounded-b-xl shadow px-5"
+                    onClick={() =>
+                      viewProduct(
+                        property.id,
+                        property.service,
+                        property.category
+                      )
+                    }
+                  >
+                    <div>
+                      <h3 className="text-[15px] font-semibold">
+                        {property.heading}
+                      </h3>
+                      <p className="text-[14px]">{property.paragraph}</p>
+                    </div>
+                    <div className="price-Infographic">
+                      <h3 className="font-medium text-right ">$3,500,000</h3>
+                      <div className="infographic flex items-center gap-3">
+                        <div className="flex gap-1 items-center">
+                          <h2 className="md:text-[14px] text-[12px]">4</h2>
+                          <IoBedOutline className="md:text-[15px] text-[12px]" />
+                        </div>
+                        <div className="flex gap-1 items-center">
+                          <h2 className="md:text-[14px] text-[12px]">2</h2>
+                          <LuBath className="md:text-[15px] text-[12px]" />
+                        </div>
+                        <div className="flex gap-1 items-center">
+                          <h2 className="md:text-[14px] text-[12px]">4</h2>
+                          <RiSofaLine className="md:text-[15px] text-[12px]" />
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               );

@@ -36,6 +36,12 @@ type ContextType = {
   urls: string[];
   triggerFileSelect: () => void;
   images: File[];
+  landButtonListing: string[];
+  landUi: Land[];
+  handleLandBtnClicking: (id: string) => void;
+  landId: string;
+  productName: string;
+  handleProductSearchOnchange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
 type CreateDetail = {
@@ -51,18 +57,26 @@ const ContextKingdom = ({ children }: { children: ReactNode }) => {
     "Apartment",
     "Villa",
     "Office",
+    "All",
   ]);
 
   const [SalesBtnId, setSalesBtnId] = useState<string>("");
   const [RentBtnId, setRentBtnId] = useState<string>("");
-  const [SalesProduct, setSalesProduct] = useState(PropertyForsale);
-  const [RentProduct, setRentProduct] = useState(PropertyForRent);
+  const [SalesProduct, setSalesProduct] = useState<Property[]>(PropertyForsale);
+  const originalSellProduct = useRef(SalesProduct);
+
+  const [RentProduct, setRentProduct] = useState<Property[]>(PropertyForRent);
+  const originalRentProduct = useRef(RentProduct);
+
   const handleBtnClicking = (id: string) => {
     const product = PropertyForsale.filter(
       (product) => product.category === id
     );
     setSalesProduct(product);
     setSalesBtnId(id.toLowerCase());
+    if (id === "All") {
+      setSalesProduct(PropertyForsale);
+    }
   };
   const RentPropertyBtn = (id: string) => {
     const product = PropertyForRent.filter(
@@ -70,6 +84,9 @@ const ContextKingdom = ({ children }: { children: ReactNode }) => {
     );
     setRentProduct(product);
     setRentBtnId(id.toLowerCase());
+    if (id === "All") {
+      setRentProduct(PropertyForRent);
+    }
   };
   const buttonListing: JSX.Element[] = saleButton.map((button, index) => {
     return (
@@ -97,6 +114,22 @@ const ContextKingdom = ({ children }: { children: ReactNode }) => {
       </div>
     );
   });
+
+  const [landButtonListing] = useState<string[]>([
+    "Residential",
+    "Commercial",
+    "All",
+  ]);
+  const [landUi, setLandUi] = useState<Land[]>(LandList);
+  const [landId, setLandId] = useState("");
+  const handleLandBtnClicking = (id: string) => {
+    const landFilter = LandList.filter((land) => land.category === id);
+    setLandUi(landFilter);
+    if (id === "All") {
+      setLandUi(LandList);
+    }
+    setLandId(id);
+  };
 
   const router = useRouter();
   const viewProduct = (id: number, service: string, category: string) => {
@@ -212,6 +245,49 @@ const ContextKingdom = ({ children }: { children: ReactNode }) => {
   };
 
   ////ENDING OF IMAGE
+
+  // BEGINIG OF PRODUCT SEARCH
+  const [productName, setProductName] = useState("");
+  const handleProductSearchOnchange = (e: ChangeEvent<HTMLInputElement>) => {
+    setProductName(() => e.target.value.trim());
+  };
+
+  useEffect(() => {
+    const userSearchInput = productName.toLowerCase();
+
+    if (userSearchInput === "") {
+      setSalesProduct(originalSellProduct.current);
+      setRentProduct(originalRentProduct.current);
+      return;
+    }
+    const propertyBuy = originalSellProduct.current.filter((house) => {
+      const propertyElement = house.heading
+        .trim()
+        .toLowerCase()
+        .includes(userSearchInput);
+      return propertyElement;
+    });
+
+    const propertyRent = originalRentProduct.current.filter((house) => {
+      const propertyElement = house.heading
+        .trim()
+        .toLowerCase()
+        .includes(userSearchInput);
+      return propertyElement;
+    });
+
+    if (propertyBuy.length > 0) {
+      setSalesProduct(propertyBuy);
+    } else {
+      setSalesProduct(PropertyForsale);
+    }
+    if (propertyRent.length > 0) {
+      setRentProduct(propertyRent);
+    } else {
+      setRentProduct(PropertyForRent);
+    }
+  }, [productName]);
+
   return (
     <ContextInit.Provider
       value={{
@@ -232,6 +308,12 @@ const ContextKingdom = ({ children }: { children: ReactNode }) => {
         urls,
         triggerFileSelect,
         images,
+        landButtonListing,
+        landUi,
+        handleLandBtnClicking,
+        landId,
+        productName,
+        handleProductSearchOnchange,
       }}
     >
       {children}
