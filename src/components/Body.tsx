@@ -20,8 +20,15 @@ type Service = {
 };
 
 const Body = () => {
-  const { buttonListing, Rentbutton, SalesProduct, RentProduct, viewProduct } =
-    useContextRetrieval();
+  const {
+    buttonListing,
+    Rentbutton,
+    SalesProduct,
+    RentProduct,
+    viewProduct,
+    rentRef,
+    sellRef,
+  } = useContextRetrieval();
   const [serviceContent] = useState<Service[]>([
     {
       heading: "Buy a property",
@@ -60,7 +67,10 @@ const Body = () => {
         </div>
       </div>
 
-      <section className="grid md:grid-cols-3 grid-cols-1 md:gap-19 gap-5 items-center mt-20">
+      <section
+        ref={sellRef}
+        className="grid md:grid-cols-3 grid-cols-1 md:gap-19 gap-5 items-center mt-20"
+      >
         {SalesProduct &&
           SalesProduct.map((property, index) => {
             return (
@@ -132,7 +142,10 @@ const Body = () => {
           <p className="text-[13px]">Adding to clients value and assets </p>
         </div>
 
-        <div className="grid md:grid-cols-3 grid-cols-1 md:gap-20 gap-10 items-center">
+        <div
+          ref={sellRef}
+          className=" grid md:grid-cols-3 grid-cols-1 md:gap-20 gap-10 items-center"
+        >
           {serviceContent &&
             serviceContent.map((card, index) => {
               return (

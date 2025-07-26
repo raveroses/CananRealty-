@@ -42,6 +42,8 @@ type ContextType = {
   landId: string;
   productName: string;
   handleProductSearchOnchange: (e: ChangeEvent<HTMLInputElement>) => void;
+  sellRef: RefObject<HTMLDivElement | null>;
+  rentRef: RefObject<HTMLDivElement | null>;
 };
 
 type CreateDetail = {
@@ -251,6 +253,8 @@ const ContextKingdom = ({ children }: { children: ReactNode }) => {
   const handleProductSearchOnchange = (e: ChangeEvent<HTMLInputElement>) => {
     setProductName(() => e.target.value.trim());
   };
+  const sellRef = useRef<HTMLDivElement>(null);
+  const rentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const userSearchInput = productName.toLowerCase();
@@ -281,13 +285,31 @@ const ContextKingdom = ({ children }: { children: ReactNode }) => {
     } else {
       setSalesProduct(PropertyForsale);
     }
+
     if (propertyRent.length > 0) {
       setRentProduct(propertyRent);
     } else {
       setRentProduct(PropertyForRent);
     }
+
+    console.log("rent", propertyRent);
   }, [productName]);
 
+  useEffect(() => {
+    if (SalesProduct.length > 0) {
+      if (sellRef.current !== null) {
+        sellRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  }, [SalesProduct]);
+
+  useEffect(() => {
+    if (RentProduct.length > 0) {
+      if (rentRef.current !== null) {
+        rentRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  }, [RentProduct]);
   return (
     <ContextInit.Provider
       value={{
@@ -314,6 +336,8 @@ const ContextKingdom = ({ children }: { children: ReactNode }) => {
         landId,
         productName,
         handleProductSearchOnchange,
+        sellRef,
+        rentRef,
       }}
     >
       {children}
