@@ -6,7 +6,6 @@ import { RiSofaLine } from "react-icons/ri";
 import { IoBedOutline } from "react-icons/io5";
 const LandBody = () => {
   const {
-    LandList,
     viewLandProduct,
     landButtonListing,
     landUi,

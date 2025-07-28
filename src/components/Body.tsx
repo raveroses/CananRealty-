@@ -142,10 +142,7 @@ const Body = () => {
           <p className="text-[13px]">Adding to clients value and assets </p>
         </div>
 
-        <div
-          ref={sellRef}
-          className=" grid md:grid-cols-3 grid-cols-1 md:gap-20 gap-10 items-center"
-        >
+        <div className=" grid md:grid-cols-3 grid-cols-1 md:gap-20 gap-10 items-center">
           {serviceContent &&
             serviceContent.map((card, index) => {
               return (
@@ -193,7 +190,10 @@ const Body = () => {
           </div>
         </div>
 
-        <section className="grid md:grid-cols-3 grid-cols-1 md:gap-19 gap-5 items-center mt-20">
+        <section
+          ref={rentRef}
+          className="grid md:grid-cols-3 grid-cols-1 md:gap-19 gap-5 items-center mt-20"
+        >
           {RentProduct &&
             RentProduct.map((property, index) => {
               return (

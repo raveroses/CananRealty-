@@ -1,9 +1,10 @@
 "use client";
 import useContextRetrieval from "@/app/context/useContextRetrieval";
+import useStore from "@/app/zustand/useStore";
 import { useState } from "react";
 import { PiCaretRightThin } from "react-icons/pi";
 import { TbCurrencyNaira } from "react-icons/tb";
-import usePersonStore from "./useStore";
+
 const Listing = () => {
   const { isListingNext } = useContextRetrieval();
 
@@ -62,33 +63,65 @@ const Listing = () => {
     ParkingOpen,
     handleFocus,
     handleBlur,
-  } = usePersonStore();
+    handleUserValueClickRetrieval,
+    conditionValue,
+    propertyType,
+    furnishingValue,
+    parkingSpace,
+    handleInputOnchange,
+  } = useStore();
 
+  console.log(ConditionOpen);
+  console.log(condition.length ?? "number");
+  console.log(condition);
+  console.log(conditionValue);
   const propertyTypeMap = propertyTypes.map((property, index) => {
     return (
-      <li className="hover:bg-gray-100 py-3 px-2 border-b " key={index}>
+      <li
+        className="hover:bg-gray-100 py-3 px-2 border-b cursor-pointer"
+        key={index}
+        onClick={() => handleUserValueClickRetrieval("propertyType", property)}
+      >
         {property}
       </li>
     );
   });
   const furnishingTypeMap = furnishing.map((furnishing, index) => {
     return (
-      <li className="hover:bg-gray-100 py-3 px-2 border-b " key={index}>
+      <li
+        className="hover:bg-gray-100 py-3 px-2 border-b  cursor-pointer"
+        key={index}
+        onClick={() =>
+          handleUserValueClickRetrieval("furnishingValue", furnishing)
+        }
+      >
         {furnishing}
       </li>
     );
   });
-  const conditionTypeMap = condition.map((condition, index) => {
+  const conditionTypeMap = condition.map((condition) => {
     return (
-      <li className="hover:bg-gray-100 py-3 px-2 border-b " key={index}>
+      <li
+        className="hover:bg-gray-100 py-3 px-2 border-b cursor-pointer"
+        key={condition}
+        onClick={() =>
+          handleUserValueClickRetrieval("conditionValue", condition)
+        }
+      >
         {condition}
       </li>
     );
   });
 
   const parkingTypeMap = parking.map((park, index) => {
+    console.log(typeof park);
+
     return (
-      <li className="hover:bg-gray-100 py-3 px-2 border-b " key={index}>
+      <li
+        className="hover:bg-gray-100 py-3 px-2 border-b cursor-pointer"
+        key={index}
+        onClick={() => handleUserValueClickRetrieval("parkingSpace", park)}
+      >
         {park}
       </li>
     );
@@ -100,7 +133,10 @@ const Listing = () => {
         isListingNext ? "block" : "hidden"
       }`}
     >
-      <form className="flex flex-col gap-5 w-full">
+      <form
+        className="flex flex-col gap-5 w-full"
+        onSubmit={(e) => e.preventDefault()}
+      >
         <div className="flexArea grid md:grid-cols-2 grid-col-1 items-center gap-5  w-full">
           <div>
             <p className="text-right text-[13px]">0/60</p>
@@ -128,6 +164,8 @@ const Listing = () => {
             >
               <input
                 type="text"
+                value={conditionValue}
+                onChange={() => handleInputOnchange("conditionValue")}
                 placeholder="condition"
                 className="  w-full border-none outline-none placeholder:text-[14px]"
                 onFocus={() => handleFocus("Condition")}
@@ -153,9 +191,11 @@ const Listing = () => {
               <input
                 type="text"
                 placeholder="Furnishing"
+                value={furnishingValue}
                 className="  w-full border-none outline-none placeholder:text-[14px]"
                 onFocus={() => handleFocus("Furnishing")}
                 onBlur={() => handleBlur("Furnishing")}
+                onChange={() => handleInputOnchange("furnishingValue")}
               />
               <PiCaretRightThin className="font-bold " />
             </div>
@@ -177,9 +217,11 @@ const Listing = () => {
               <input
                 type="text"
                 placeholder="Property Type"
+                value={propertyType}
                 className="  w-full border-none outline-none placeholder:text-[14px]"
                 onFocus={() => handleFocus("PropertyType")}
                 onBlur={() => handleBlur("PropertyType")}
+                onChange={() => handleInputOnchange("propertyType")}
               />
               <PiCaretRightThin className="font-bold " />
             </div>
@@ -210,9 +252,11 @@ const Listing = () => {
               <input
                 type="number"
                 placeholder="Parking Spaces"
+                value={parkingSpace}
                 className=" w-full border-none outline-none placeholder:text-[14px]"
                 onFocus={() => handleFocus("Parking")}
                 onBlur={() => handleBlur("Parking")}
+                onChange={() => handleInputOnchange("parkingSpace")}
               />
               <PiCaretRightThin className="font-bold " />
             </div>
