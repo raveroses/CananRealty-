@@ -2,20 +2,67 @@
 import { GoPlus } from "react-icons/go";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import useContextRetrieval from "@/app/context/useContextRetrieval";
 import { ToastContainer, Bounce } from "react-toastify";
+import useStore from "@/app/zustand/useStore";
+import { useEffect, useRef } from "react";
 
 const ListFrontPage = () => {
   const {
     isListingNext,
-    ref,
     urls,
-    triggerFileSelect,
+    city,
+    state,
+    category,
     handleFileChange,
     handleOnChange,
-    createDetail,
     handleCreateDetailFormSubmission,
-  } = useContextRetrieval();
+  } = useStore();
+  console.log(isListingNext);
+  // useEffect(() => {
+  //   try {
+  //     const detail = localStorage.getItem("create-detail");
+  //     const urls = localStorage.getItem("uploaded-urls");
+
+  //     if (detail) {
+  //       setCreateDetail(JSON.parse(detail));
+  //     }
+  //     if (urls) {
+  //       const parsed = JSON.parse(urls);
+  //       if (Array.isArray(parsed)) {
+  //         setUrls(parsed);
+  //       }
+  //     }
+  //   } catch (err) {
+  //     console.error("Failed to load from localStorage", err);
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    try {
+      const detail = localStorage.getItem("create-detail");
+      const urls = localStorage.getItem("uploaded-urls");
+
+      if (detail) {
+        const parsedDetail = JSON.parse(detail);
+        useStore.setState({ ...parsedDetail });
+      }
+
+      if (urls) {
+        const parsedUrls = JSON.parse(urls);
+        if (Array.isArray(parsedUrls)) {
+          useStore.setState({ urls: parsedUrls });
+        }
+      }
+    } catch (err) {
+      console.error("Failed to load from localStorage", err);
+    }
+  }, []);
+
+  const ref = useRef<HTMLInputElement | null>(null);
+
+  const triggerFileSelect = () => {
+    ref?.current?.click();
+  };
 
   return (
     <div className={`md:px-20 px-[10px] ${isListingNext ? "hidden" : "block"}`}>
@@ -29,7 +76,7 @@ const ListFrontPage = () => {
             type="text"
             name="category"
             placeholder="Category"
-            value={createDetail.category}
+            value={category}
             className="w-full md:py-4 py-3 px-2 border border-gray-400 rounded text-gray-700 
           focus:outline-none focus:shadow-md focus:shadow-[#1266e3] placeholder:text-[14px]"
             onChange={handleOnChange}
@@ -38,7 +85,7 @@ const ListFrontPage = () => {
             type="text"
             placeholder="Enter State "
             name="state"
-            value={createDetail.state}
+            value={state}
             className=" w-full md:py-4 py-3 px-2 border border-gray-400 rounded text-gray-700 
           focus:outline-none focus:shadow-md focus:shadow-[#1266e3] placeholder:text-[14px]"
             onChange={handleOnChange}
@@ -47,7 +94,7 @@ const ListFrontPage = () => {
             type="text"
             placeholder="Enter City"
             name="city"
-            value={createDetail.city}
+            value={city}
             className=" w-full md:py-4 py-3 px-2 border border-gray-400 rounded text-gray-700 
           focus:outline-none focus:shadow-md focus:shadow-[#1266e3] placeholder:text-[14px]"
             onChange={handleOnChange}
@@ -93,10 +140,8 @@ const ListFrontPage = () => {
           </div>
           <Button
             type="submit"
-            // variant="outline"
             className="bg-[#1266e3] w-full mt-10 text-white font-semibold cursor-pointer hover:bg-blue-300
              hover:text-[#1266e3] transition all-ease duration-2000"
-            // onClick={handleNext}
           >
             Next
           </Button>

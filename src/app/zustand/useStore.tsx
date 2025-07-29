@@ -1,30 +1,44 @@
 "use client";
-import { ChangeEvent } from "react";
+import { ChangeEvent, FormEvent } from "react";
 import { create } from "zustand";
-
+import { toast } from "react-toastify";
+import axios from "axios";
 type inputTypes = {
   title: string;
   address: string;
   conditionValue: string;
   propertyType: string;
   furnishingValue: string;
-  squareMetre: number;
-  parkingSpace: number;
+  squareMetre: number | string;
+  parkingSpace: number | string;
   secureParking: boolean;
   description: string;
-  price: number;
+  price: number | string;
   negotiation: string;
   name: string;
   email: string;
-  yes: boolean;
-  no: boolean;
-  notsure: boolean;
+  selected: string;
   handleUserValueClickRetrieval: (type: string, id: string | number) => void;
   handleInputOnchange: (type: string) => void;
   handleInputOnchange2: (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
-  handleCheckBox: (selected: string) => void;
+  handleCheckBox: (selected?: string) => void;
+  handleCheckBox2: (e: ChangeEvent<HTMLInputElement>) => void;
+  objectListing: Partial<FullType>;
+  setListing: (data: Partial<FullType>) => void;
+  category: string;
+  state: string;
+  city: string;
+  handleOnChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleCreateDetailFormSubmission?: (e: FormEvent) => void;
+  handleFileChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleCreateDetailField: () => boolean;
+  urls: string[];
+  isListingNext: boolean;
+  images: File[];
+  UPLOAD_PRESET: string;
+  CLOUD_NAME: string;
 };
 type handleFunc = {
   ConditionOpen: boolean;
@@ -35,8 +49,12 @@ type handleFunc = {
   handleFocus: (type: string) => void;
 };
 
-type FullType = inputTypes & handleFunc;
-
+export type FullType = inputTypes & handleFunc;
+// type CreateDetail = {
+//   category: string;
+//   state: string;
+//   city: string;
+// };
 const useStore = create<FullType>((set) => ({
   ConditionOpen: false,
   FurnishingOpen: false,
@@ -48,18 +66,30 @@ const useStore = create<FullType>((set) => ({
   conditionValue: "",
   propertyType: "",
   furnishingValue: "",
-  squareMetre: 0,
-  parkingSpace: 0,
+  squareMetre: "",
+  parkingSpace: "",
   secureParking: false,
   description: "",
-  price: 0,
+  price: "",
   negotiation: "",
   name: "",
   email: "",
-  yes: false,
-  no: false,
-  notsure: false,
+  selected: "",
+  objectListing: {},
+
   // END OF USER CLICK
+  // beginig of listfontpage
+  category: "",
+  state: "",
+  city: "",
+
+  // cloudinary
+
+  UPLOAD_PRESET: "realestate",
+  CLOUD_NAME: "diptafc1s",
+  images: [],
+  urls: [],
+  isListingNext: false,
   handleFocus: (type: string) => {
     set((state) => {
       const open = { ...state, [`${type}Open`]: true };
@@ -84,11 +114,85 @@ const useStore = create<FullType>((set) => ({
     const { name, value } = e.target;
     set((state) => ({ ...state, [name]: value }));
   },
-  handleCheckBox: (selected: string) => {
+  handleCheckBox: (select?: string) => {
+    set(() => ({ selected: select }));
+  },
+  handleCheckBox2: (e: ChangeEvent<HTMLInputElement>) => {
+    set(() => ({ secureParking: e.target.checked }));
+  },
+
+  setListing: (data) =>
+    set((state) => ({
+      objectListing: {
+        ...state.objectListing,
+        ...data,
+      },
+    })),
+  handleOnChange: (e: ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = e.target;
+    set((state) => {
+      const updateDetail = { ...state, [name]: value };
+      localStorage.setItem("create-detail", JSON.stringify(updateDetail));
+      return updateDetail;
+    });
+  },
+
+  handleCreateDetailField: (): boolean => {
+    const { category, city, state } = useStore.getState();
+    if (!category || !city || !state) {
+      toast.error("Please fill all required fields");
+      return false;
+    }
+    return true;
+  },
+
+  handleCreateDetailFormSubmission: (e: FormEvent) => {
+    e.preventDefault();
+    const state = useStore.getState();
+
+    if (state.handleCreateDetailField() && state.urls.length > 1) {
+      set(() => ({ isListingNext: !state.isListingNext }));
+    }
+  },
+
+  ///BEGINING OF LISTING IMAGES
+  handleFileChange: async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    const selectedFiles = Array.from(files);
+    const uploadedUrls: string[] = [];
+
+    const { CLOUD_NAME, UPLOAD_PRESET } = useStore.getState();
+
+    for (const image of selectedFiles) {
+      const formData = new FormData();
+      formData.append("file", image);
+      formData.append("upload_preset", UPLOAD_PRESET);
+
+      try {
+        const res = await axios.post(
+          `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/upload`,
+          formData
+        );
+        uploadedUrls.push(res.data.secure_url);
+      } catch (err) {
+        console.error("Upload failed for", image?.name, err);
+      }
+    }
+
+    const prevUrls = useStore.getState().urls;
+    const updatedUrls = [...prevUrls, ...uploadedUrls];
+
+    try {
+      localStorage.setItem("uploaded-urls", JSON.stringify(updatedUrls));
+    } catch (err) {
+      console.error("Failed to store image URLs:", err);
+    }
+
     set(() => ({
-      yes: selected === "yes",
-      no: selected === "no",
-      notsure: selected === "notsure",
+      urls: updatedUrls,
+      images: selectedFiles,
     }));
   },
 }));

@@ -1,13 +1,12 @@
 "use client";
-import useContextRetrieval from "@/app/context/useContextRetrieval";
 import useStore from "@/app/zustand/useStore";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useState, FormEvent, useEffect } from "react";
 import { PiCaretRightThin } from "react-icons/pi";
 import { TbCurrencyNaira } from "react-icons/tb";
+import { Bounce, toast, ToastContainer } from "react-toastify";
 
 const Listing = () => {
-  const { isListingNext } = useContextRetrieval();
-
   const [propertyTypes] = useState<string[]>([
     "Hotel",
     "Office spaces",
@@ -76,12 +75,74 @@ const Listing = () => {
     secureParking,
     description,
     handleCheckBox,
+    handleCheckBox2,
     price,
-    yes,
-    no,
-    notsure,
+    selected,
+    isListingNext,
   } = useStore();
-  console.log("Yes", yes, "No", no, "Notsure", notsure);
+
+  console.log(secureParking);
+  const router = useRouter();
+  const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (submitted) {
+      console.log("Form submitted and state updated");
+      setSubmitted(false);
+    }
+  }, [submitted]);
+  const handleFormSubmission = (e: FormEvent<HTMLFormElement>) => {
+    console.log("I'm clicked");
+    e.preventDefault();
+    if (
+      !title ||
+      !address ||
+      !description ||
+      !conditionValue ||
+      !furnishingValue ||
+      !propertyType ||
+      !parkingSpace ||
+      !squareMetre ||
+      !price ||
+      !selected ||
+      !secureParking
+    ) {
+      toast.error("Please fill all neccessary fields");
+      return;
+    }
+    const setListing = useStore.getState().setListing;
+
+    // setListing(objectListing:{
+    //   title: title,
+    //   address: address,
+    //   description: description,
+    //   conditionValue: conditionValue,
+    //   furnishingValue: furnishingValue,
+    //   propertyType: propertyType,
+    //   parkingSpace: parkingSpace,
+    //   squareMetre: squareMetre,
+    //   price: price,
+    //   selected: selected,
+    //   secureParking: secureParking,
+    // });
+
+    setListing({
+      title,
+      address,
+      description,
+      conditionValue,
+      furnishingValue,
+      propertyType,
+      parkingSpace,
+      squareMetre,
+      price,
+      selected,
+      secureParking,
+    });
+
+    setSubmitted(true);
+    router.push("/list-products");
+  };
 
   const propertyTypeMap = propertyTypes.map((property, index) => {
     return (
@@ -141,7 +202,7 @@ const Listing = () => {
     >
       <form
         className="flex flex-col gap-5 w-full"
-        onSubmit={(e) => e.preventDefault()}
+        onSubmit={handleFormSubmission}
       >
         <div className="flexArea grid md:grid-cols-2 grid-col-1 items-center gap-5  w-full">
           <div>
@@ -177,6 +238,7 @@ const Listing = () => {
               <input
                 type="text"
                 value={conditionValue}
+                readOnly
                 onChange={() => handleInputOnchange("conditionValue")}
                 placeholder="condition"
                 className="  w-full border-none outline-none placeholder:text-[14px]"
@@ -204,6 +266,7 @@ const Listing = () => {
                 type="text"
                 placeholder="Furnishing"
                 value={furnishingValue}
+                readOnly
                 className="  w-full border-none outline-none placeholder:text-[14px]"
                 onFocus={() => handleFocus("Furnishing")}
                 onBlur={() => handleBlur("Furnishing")}
@@ -230,6 +293,7 @@ const Listing = () => {
                 type="text"
                 placeholder="Property Type"
                 value={propertyType}
+                readOnly
                 className="  w-full border-none outline-none placeholder:text-[14px]"
                 onFocus={() => handleFocus("PropertyType")}
                 onBlur={() => handleBlur("PropertyType")}
@@ -251,6 +315,7 @@ const Listing = () => {
               type="number"
               name="squareMetre"
               value={squareMetre}
+              onChange={handleInputOnchange2}
               placeholder="Square Metres(sqm)"
               className="w-full md:py-4 py-3 px-2 border border-gray-400 rounded text-gray-700 
           focus:outline-none focus:shadow-md focus:shadow-[#1266e3] placeholder:text-[14px]"
@@ -265,6 +330,7 @@ const Listing = () => {
                 type="number"
                 placeholder="Parking Spaces"
                 value={parkingSpace}
+                readOnly
                 className=" w-full border-none outline-none placeholder:text-[14px]"
                 onFocus={() => handleFocus("Parking")}
                 onBlur={() => handleBlur("Parking")}
@@ -289,7 +355,7 @@ const Listing = () => {
             type="checkbox"
             name="secureParking"
             checked={secureParking}
-            onChange={() => handleCheckBox("secureParking")}
+            onChange={handleCheckBox2}
           />
           <label htmlFor="park"> Yes</label>
           <textarea
@@ -318,14 +384,14 @@ const Listing = () => {
               <input
                 type="radio"
                 name="selected"
-                checked={yes}
+                checked={selected === "yes"}
                 onChange={() => handleCheckBox("yes")}
               />
               <label htmlFor="No">No</label>
               <input
                 type="radio"
                 name="selected"
-                checked={no}
+                checked={selected === "no"}
                 onChange={() => handleCheckBox("no")}
               />
 
@@ -333,7 +399,7 @@ const Listing = () => {
               <input
                 type="radio"
                 name="selected"
-                checked={notsure}
+                checked={selected === "notsure"}
                 onChange={() => handleCheckBox("notsure")}
               />
             </div>
@@ -360,6 +426,19 @@ const Listing = () => {
           Post Ads
         </button>
       </form>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+      />
     </section>
   );
 };
