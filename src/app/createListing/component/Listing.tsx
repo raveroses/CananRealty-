@@ -69,12 +69,20 @@ const Listing = () => {
     furnishingValue,
     parkingSpace,
     handleInputOnchange,
+    handleInputOnchange2,
+    title,
+    address,
+    squareMetre,
+    secureParking,
+    description,
+    handleCheckBox,
+    price,
+    yes,
+    no,
+    notsure,
   } = useStore();
+  console.log("Yes", yes, "No", no, "Notsure", notsure);
 
-  console.log(ConditionOpen);
-  console.log(condition.length ?? "number");
-  console.log(condition);
-  console.log(conditionValue);
   const propertyTypeMap = propertyTypes.map((property, index) => {
     return (
       <li
@@ -114,8 +122,6 @@ const Listing = () => {
   });
 
   const parkingTypeMap = parking.map((park, index) => {
-    console.log(typeof park);
-
     return (
       <li
         className="hover:bg-gray-100 py-3 px-2 border-b cursor-pointer"
@@ -142,7 +148,10 @@ const Listing = () => {
             <p className="text-right text-[13px]">0/60</p>
             <input
               type="text"
+              name="title"
+              value={title}
               placeholder="Title"
+              onChange={handleInputOnchange2}
               className="w-full md:py-4 py-3 px-2 border border-gray-400 rounded text-gray-700 
           focus:outline-none focus:shadow-md focus:shadow-[#1266e3] placeholder:text-[14px]"
             />
@@ -152,7 +161,10 @@ const Listing = () => {
 
             <input
               type="text"
+              value={address}
+              name="address"
               placeholder="Address"
+              onChange={handleInputOnchange2}
               className="w-full md:py-4 py-3 px-2 border border-gray-400 rounded text-gray-700 
           focus:outline-none focus:shadow-md focus:shadow-[#1266e3] placeholder:text-[14px]"
             />
@@ -237,8 +249,8 @@ const Listing = () => {
           <div>
             <input
               type="number"
-              name=""
-              id=""
+              name="squareMetre"
+              value={squareMetre}
               placeholder="Square Metres(sqm)"
               className="w-full md:py-4 py-3 px-2 border border-gray-400 rounded text-gray-700 
           focus:outline-none focus:shadow-md focus:shadow-[#1266e3] placeholder:text-[14px]"
@@ -273,11 +285,17 @@ const Listing = () => {
         </div>
         <div>
           <h3 className="font-bold text-[15px]">Secure Parking</h3>
-          <input type="checkbox" name="" id="" />
+          <input
+            type="checkbox"
+            name="secureParking"
+            checked={secureParking}
+            onChange={() => handleCheckBox("secureParking")}
+          />
           <label htmlFor="park"> Yes</label>
           <textarea
-            name=""
-            id=""
+            name="description"
+            value={description}
+            onChange={handleInputOnchange2}
             placeholder="Description"
             className=" w-full h-[130px] md:py-4 py-3 px-2 border border-gray-400 rounded text-gray-700 
           focus:outline-none focus:shadow-md focus:shadow-[#1266e3] placeholder:text-[14px] my-6"
@@ -286,6 +304,9 @@ const Listing = () => {
             <TbCurrencyNaira className="font-bold " />
             <input
               type="number"
+              name="price"
+              value={price}
+              onChange={handleInputOnchange2}
               placeholder="Price"
               className=" w-full border-none outline-none placeholder:text-[14px]"
             />
@@ -294,12 +315,27 @@ const Listing = () => {
             <h3 className="mt-2">Are you open to negotiation?</h3>
             <div className="flex gap-2">
               <label htmlFor="Yes">Yes</label>
-              <input type="radio" name="" id="" />
+              <input
+                type="radio"
+                name="selected"
+                checked={yes}
+                onChange={() => handleCheckBox("yes")}
+              />
               <label htmlFor="No">No</label>
-              <input type="radio" name="" id="" />
+              <input
+                type="radio"
+                name="selected"
+                checked={no}
+                onChange={() => handleCheckBox("no")}
+              />
 
               <label htmlFor="not"> Not sure</label>
-              <input type="radio" name="" id="" />
+              <input
+                type="radio"
+                name="selected"
+                checked={notsure}
+                onChange={() => handleCheckBox("notsure")}
+              />
             </div>
           </div>
           <div className="flex md:gap-5 gap-2 ">
