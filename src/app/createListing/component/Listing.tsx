@@ -79,9 +79,14 @@ const Listing = () => {
     price,
     selected,
     isListingNext,
+    category,
+    state,
+    city,
+    objectListing,
+    urls,
   } = useStore();
 
-  console.log(secureParking);
+  console.log(objectListing);
   const router = useRouter();
   const [submitted, setSubmitted] = useState(false);
 
@@ -138,6 +143,10 @@ const Listing = () => {
       price,
       selected,
       secureParking,
+      category,
+      city,
+      state,
+      urls,
     });
 
     setSubmitted(true);

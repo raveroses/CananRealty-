@@ -25,13 +25,13 @@ type inputTypes = {
   ) => void;
   handleCheckBox: (selected?: string) => void;
   handleCheckBox2: (e: ChangeEvent<HTMLInputElement>) => void;
-  objectListing: Partial<FullType>;
+  objectListing: Partial<FullType>[];
   setListing: (data: Partial<FullType>) => void;
   category: string;
   state: string;
   city: string;
   handleOnChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  handleCreateDetailFormSubmission?: (e: FormEvent) => void;
+  handleCreateDetailFormSubmission: (e: FormEvent) => void;
   handleFileChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleCreateDetailField: () => boolean;
   urls: string[];
@@ -75,7 +75,7 @@ const useStore = create<FullType>((set) => ({
   name: "",
   email: "",
   selected: "",
-  objectListing: {},
+  objectListing: [],
 
   // END OF USER CLICK
   // beginig of listfontpage
@@ -99,7 +99,7 @@ const useStore = create<FullType>((set) => ({
   handleBlur: (type: string) => {
     setTimeout(() => {
       set((state) => ({ ...state, [`${type}Open`]: false }));
-    }, 3000);
+    }, 2000);
   },
 
   handleUserValueClickRetrieval: (type: string, id: string | number) => {
@@ -123,10 +123,12 @@ const useStore = create<FullType>((set) => ({
 
   setListing: (data) =>
     set((state) => ({
-      objectListing: {
-        ...state.objectListing,
-        ...data,
-      },
+      objectListing: [
+        {
+          ...state.objectListing,
+          ...data,
+        },
+      ],
     })),
   handleOnChange: (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
